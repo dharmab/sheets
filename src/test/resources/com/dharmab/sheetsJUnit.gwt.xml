@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="sheets">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.dharmab.sheets' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/sheets/greet" class="com.dharmab.server.GreetingServiceImpl" />
+
+</module>
