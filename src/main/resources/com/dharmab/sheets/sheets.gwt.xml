@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='sheets'>
+    <entry-point class='com.dharmab.sheets.client.Sheets'/>
+
+    <source path='client'/>
+    <source path='shared'/>
+
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
+    <inherits name="com.google.common.base.Base"/>
+    <inherits name="com.google.gwt.inject.Inject"/>
+    <inherits name="com.google.gwt.activity.Activity"/>
+    <inherits name="com.google.gwt.logging.Logging"/>
+    <inherits name="com.google.gwt.editor.Editor"/>
+
+    <set-property name="gwt.logging.logLevel" value="FINEST" />
+</module>

@@ -1,0 +1,21 @@
+CREATE TABLE characters (
+  id                   SERIAL PRIMARY KEY,
+  version              INT  NOT NULL,
+  name                 TEXT NOT NULL,
+  level                INT  NOT NULL,
+  background           TEXT NOT NULL ,
+  race                 TEXT NOT NULL ,
+  experience_points    TEXT NOT NULL,
+  strength             INT  NOT NULL,
+  dexterity            INT  NOT NULL,
+  constitution         INT  NOT NULL,
+  intelligence         INT  NOT NULL,
+  wisdom               INT  NOT NULL,
+  charisma             INT  NOT NULL,
+  armor_class          INT  NOT NULL,
+  initiative           INT  NOT NULL,
+  speed                INT  NOT NULL,
+  maximum_hit_points   INT  NOT NULL,
+  current_hit_points   INT  NOT NULL,
+  temporary_hit_points INT  NOT NULL
+)

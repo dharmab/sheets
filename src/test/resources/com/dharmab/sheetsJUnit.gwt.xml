@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
 <module rename-to="sheets">
-  <!-- Inherit our applications main module.                      -->
-  <inherits name='com.dharmab.sheets' />
+    <!-- Inherit our applications main module.                      -->
+    <inherits name='com.dharmab.sheets.sheets'/>
+    <inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
+    <inherits name="com.google.gwt.inject.Inject"/>
 
-  <!-- Specify the path to any remote services.                   -->
-  <servlet path="/sheets/greet" class="com.dharmab.server.GreetingServiceImpl" />
+    <!-- Specify the path to any remote services.                   -->
+    <servlet path="/sheets/greet" class="com.dharmab.sheets.server.GreetingServiceImpl"/>
 
 </module>

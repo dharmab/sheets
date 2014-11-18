@@ -1,0 +1,11 @@
+<!--suppress ALL -->
+<Context>
+    <Resource name="jdbc/postgresql"
+              auth="Container"
+              type="javax.sql.DataSource"
+              factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+              driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql:sheets"
+              username="sheets"
+              password="sheets"/>
+</Context>

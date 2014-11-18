@@ -1,0 +1,9 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:app='urn:import:com.dharmab.sheets.client.widgets'>
+    <g:HTMLPanel>
+        <g:Label text="Your Characters"/>
+        <app:CharacterListView ui:field="characterList"/>
+        <g:Button ui:field="create" text="Create New Character"/>
+    </g:HTMLPanel>
+</ui:UiBinder>

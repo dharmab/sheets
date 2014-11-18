@@ -1,0 +1,32 @@
+---
+- name: install EPEL bootstrap repository
+  copy: src=epel-bootstrap.repo dest=/etc/yum.repos.d/
+  sudo: yes
+
+- name: install EPEL repository
+  yum: name=epel-release enablerepo=epel-bootstrap
+  sudo: yes
+
+- name: enable EPEL repository
+  ini_file: dest=/etc/yum.repos.d/epel.repo section=epel option=enabled value=1
+  sudo: yes
+
+- name: update all packages
+  yum: name=* state=latest
+  sudo: yes
+
+- name: install ntp
+  yum: name=ntp state=present
+  sudo: yes
+
+- name: ensure ntp is enabled
+  service: name=ntpd state=started enabled=yes
+  sudo: yes
+
+- name: ensure sshd is enabled
+  service: name=sshd state=started enabled=yes
+  sudo: yes
+
+- name: ensure firewall is enabled
+  service: name=firewalld state=started enabled=yes
+  sudo: yes

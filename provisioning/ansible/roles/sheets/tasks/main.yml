@@ -1,0 +1,51 @@
+---
+- name: install ansible postgresql dependencies
+  yum: name=python-psycopg2
+  sudo: yes
+
+- name: install tomcat
+  yum: name=tomcat
+  sudo: yes
+
+- name: enable tomcat
+  service: name=tomcat state=started enabled=yes
+
+- name: install postgresql
+  yum: name=postgresql-server
+  sudo: yes
+  notify: initialize postgresql
+
+- name: configure postgresql access
+  copy: src=pg_hba.conf dest=/var/lib/pgsql/data/pg_hba.conf
+  sudo: yes
+  sudo_user: postgres
+  notify: restart postgresql
+
+- name: enable postgresql
+  service: name=postgresql state=started enabled=yes
+
+- name: create postgresql user
+  postgresql_user: name=sheets password=sheets encrypted=no
+  sudo: yes
+  sudo_user: postgres
+
+- name: create postgresql database
+  postgresql_db: name=sheets owner=sheets
+  sudo: yes
+  sudo_user: postgres
+
+- name: redirect HTTP/HTTPS to tomcat
+  firewalld: rich_rule='rule family="ipv4" forward-port port="{{ item }}" protocol="tcp" to-port="8080"' permanent=true state=enabled
+  with_items:
+    - 80
+    - 443
+  sudo: yes
+
+- name: open firewall ports
+  firewalld: port={{ item }} permanent=true state=enabled
+  with_items:
+    - 80/tcp
+    - 443/tcp
+    - 5432/tcp
+  sudo: yes
+  notify: reload firewall

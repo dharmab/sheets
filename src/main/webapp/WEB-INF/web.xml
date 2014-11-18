@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE web-app
-    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-    "http://java.sun.com/dtd/web-app_2_3.dtd">
+        PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+    <!-- Guice filter: see https://github.com/google/guice/wiki/Servlets -->
+    <filter>
+        <filter-name>guiceFilter</filter-name>
+        <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+    </filter>
 
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.dharmab.server.GreetingServiceImpl</servlet-class>
-  </servlet>
+    <filter-mapping>
+        <filter-name>guiceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/sheets/greet</url-pattern>
-  </servlet-mapping>
+    <!-- Context listeners trigger on application deployment and stop -->
+    <listener>
+        <listener-class>com.dharmab.sheets.server.AppContextListener</listener-class>
+    </listener>
 
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>sheets.html</welcome-file>
-  </welcome-file-list>
+    <!-- Default page to serve -->
+    <welcome-file-list>
+        <welcome-file>sheets.html</welcome-file>
+    </welcome-file-list>
 
+    <resource-ref>
+        <res-ref-name>jdbc/postgresql</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 </web-app>
