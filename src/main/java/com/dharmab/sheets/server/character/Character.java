@@ -26,6 +26,7 @@ public class Character {
     private int maximumHitPoints;
     private int currentHitPoints;
     private int temporaryHitPoints;
+    private int proficiency;
 
     public Character() {
         // Default values
@@ -346,5 +347,15 @@ public class Character {
     @SuppressWarnings("UnusedDeclaration")
     public void setCharismaModifier(int ignored) {
 
+    }
+
+    @Column(name = "proficiency")
+    @NotNull
+    public int getProficiency() {
+        return proficiency;
+    }
+
+    public void setProficiency(int proficiency) {
+        this.proficiency = proficiency;
     }
 }
