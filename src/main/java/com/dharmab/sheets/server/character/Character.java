@@ -46,7 +46,7 @@ public class Character {
     @Id
     @Column(name = "id")
     @SequenceGenerator(name = "characters_id_seq", sequenceName = "characters_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "characters_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "characters_id_seq")
     public Integer getId() {
         return id;
     }
@@ -77,6 +77,7 @@ public class Character {
 
     /**
      * This is NOT the same as {@link #getClass() getClass()}!
+     *
      * @return The character's class, e.g. fighter, rogue, wizard.
      */
     @Column(name = "character_class")
@@ -249,8 +250,12 @@ public class Character {
     }
 
     private int getAbilityModifier(int abilityScore) {
-        if (abilityScore < 10) return 0;
-        return (abilityScore - 10) / 2;
+        if (abilityScore >= 10) {
+            return (abilityScore - 10) / 2;
+        } else {
+            return (int) Math.floor((abilityScore - 10) / 2d);
+        }
+
     }
 
     @Transient

@@ -14,9 +14,17 @@ public class CharacterTest {
 
     private static Map<Integer, Integer> buildAbilityScoreModifierLookup() {
         Map<Integer, Integer> map = new HashMap<>();
-
-        map.put(8, 0);
-        map.put(9, 0);
+        // Values from Player DND Basic Rules V2, page 57
+        // http://media.wizards.com/2014/downloads/dnd/PlayerDnDBasicRules_v0.2.pdf
+        map.put(1, -5);
+        map.put(2, -4);
+        map.put(3, -4);
+        map.put(4, -3);
+        map.put(5, -3);
+        map.put(6, -2);
+        map.put(7, -2);
+        map.put(8, -1);
+        map.put(9, -1);
         map.put(10, 0);
         map.put(11, 0);
         map.put(12, 1);
@@ -45,7 +53,7 @@ public class CharacterTest {
     @Test
     public void strengthModifierTest() {
         com.dharmab.sheets.server.character.Character character = new Character();
-        for (int score = 8; score <= 30; score++) {
+        for (int score = 1; score <= 30; score++) {
             character.setStrength(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getStrengthModifier());
         }
@@ -54,7 +62,7 @@ public class CharacterTest {
     @Test
     public void dexterityModifierTest() {
         Character character = new Character();
-        for (int score = 8; score <= 30; score++) {
+        for (int score = 1; score <= 30; score++) {
             character.setDexterity(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getDexterityModifier());
         }
@@ -63,7 +71,7 @@ public class CharacterTest {
     @Test
     public void constitutionModifierTest() {
         Character character = new Character();
-        for (int score = 8; score <= 30; score++) {
+        for (int score = 1; score <= 30; score++) {
             character.setConstitution(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getConstitutionModifier());
         }
@@ -72,7 +80,7 @@ public class CharacterTest {
     @Test
     public void intelligenceModifierTest() {
         Character character = new Character();
-        for (int score = 8; score <= 30; score++) {
+        for (int score = 1; score <= 30; score++) {
             character.setIntelligence(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getIntelligenceModifier());
         }
@@ -81,7 +89,7 @@ public class CharacterTest {
     @Test
     public void wisdomModifierTest() {
         Character character = new Character();
-        for (int score = 8; score <= 30; score++) {
+        for (int score = 1; score <= 30; score++) {
             character.setWisdom(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getWisdomModifier());
         }
@@ -90,7 +98,7 @@ public class CharacterTest {
     @Test
     public void charismaModifierTest() {
         Character character = new Character();
-        for (int score = 8; score <= 30; score++) {
+        for (int score = 1; score <= 30; score++) {
             character.setCharisma(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getCharismaModifier());
         }
