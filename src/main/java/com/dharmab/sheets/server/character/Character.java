@@ -35,6 +35,12 @@ public class Character {
         race = "Human";
         level = 1;
         speed = 5;
+        strength = 8;
+        dexterity = 8;
+        constitution = 8;
+        intelligence = 8;
+        wisdom = 8;
+        charisma = 8;
     }
 
     @Id
@@ -69,6 +75,10 @@ public class Character {
         this.name = name;
     }
 
+    /**
+     * This is NOT the same as {@link #getClass() getClass()}!
+     * @return The character's class, e.g. fighter, rogue, wizard.
+     */
     @Column(name = "character_class")
     public String getCharacterClass() {
         return characterClass;
