@@ -4,7 +4,7 @@ package com.dharmab.sheets.client.events;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class CharacterSelectionEvent extends GwtEvent<CharacterSelectionEventHandler> {
-    private static final Type<CharacterSelectionEventHandler> TYPE = new Type<>();
+    public static final Type<CharacterSelectionEventHandler> TYPE = new Type<>();
 
     int id;
 

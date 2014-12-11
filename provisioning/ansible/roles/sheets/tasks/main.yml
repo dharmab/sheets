@@ -4,25 +4,44 @@
   sudo: yes
 
 - name: install tomcat
-  yum: name=tomcat
+  yum: name={{ item }}
+  with_items:
+    - tomcat
+    - apache-commons-dbcp
   sudo: yes
 
 - name: enable tomcat
   service: name=tomcat state=started enabled=yes
+  sudo: yes
 
 - name: install postgresql
   yum: name=postgresql-server
   sudo: yes
-  notify: initialize postgresql
+  register: postgresql_installation
+
+- name: download postgresql jdbc driver
+  get_url: url=http://jdbc.postgresql.org/download/postgresql-9.3-1102.jdbc41.jar dest=/usr/share/tomcat/lib/
+  sudo: yes
+
+- name: initialize postgresql
+  command: /usr/bin/postgresql-setup initdb
+  when: postgresql_installation|changed
+  sudo: yes
 
 - name: configure postgresql access
   copy: src=pg_hba.conf dest=/var/lib/pgsql/data/pg_hba.conf
   sudo: yes
   sudo_user: postgres
-  notify: restart postgresql
+  register: postgresql_access
+
+- name: restart postgresql
+  service: name=postgresql state=restarted
+  when: postgresql_installation|changed or postgresql_access|changed
+  sudo: yes
 
 - name: enable postgresql
   service: name=postgresql state=started enabled=yes
+  sudo: yes
 
 - name: create postgresql user
   postgresql_user: name=sheets password=sheets encrypted=no

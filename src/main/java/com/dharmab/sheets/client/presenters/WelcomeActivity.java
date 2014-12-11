@@ -31,13 +31,14 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
         this.requestFactory = requestFactory;
         this.view = view;
         this.placeController = placeController;
+        eventBus.addHandler(CharacterSelectionEvent.TYPE, this);
         this.driver = driver;
         driver.initialize(eventBus, requestFactory, view.asEditor());
         view.setPresenter(this);
     }
 
     @Override
-    public void start(AcceptsOneWidget panel, com.google.gwt.event.shared.EventBus eventBus) {
+    public void start(AcceptsOneWidget panel) {
         panel.setWidget(view);
         refreshCharacterList();
     }

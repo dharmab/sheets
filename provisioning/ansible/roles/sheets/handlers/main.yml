@@ -1,8 +1,0 @@
----
-- name: initialize postgresql
-  command: /usr/bin/postgresql-setup initdb
-  sudo: yes
-
-- name: restart postgresql
-  service: name=postgresql state=restarted
-  sudo: yes

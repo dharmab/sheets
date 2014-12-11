@@ -2,11 +2,15 @@
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
 <hibernate-configuration>
+
     <session-factory>
-        <property name="connection.datasource">java:comp/env/jdbc/postgresql</property>
-        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.datasource">java:comp/env/jdbc/postgresql</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+        <property name="current_session_context_class">thread</property>
 
         <mapping class="com.dharmab.sheets.server.character.Character"/>
     </session-factory>
+
 </hibernate-configuration>

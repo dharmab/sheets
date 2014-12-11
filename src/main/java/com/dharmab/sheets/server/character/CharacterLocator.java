@@ -1,14 +1,14 @@
 package com.dharmab.sheets.server.character;
 
-import com.dharmab.sheets.server.database.Database;
+import com.dharmab.sheets.server.database.DatabaseAccessor;
 import com.google.inject.Inject;
 import com.google.web.bindery.requestfactory.shared.Locator;
 
 public class CharacterLocator extends Locator<Character, Integer>{
-    private Database database;
+    private DatabaseAccessor database;
 
     @Inject
-    public CharacterLocator(Database database) {
+    public CharacterLocator(DatabaseAccessor database) {
         this.database = database;
     }
 

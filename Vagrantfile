@@ -8,6 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define 'development' do |development|
     development.vm.box = 'chef/centos-7.0'
     development.vm.network "forwarded_port", guest: 80, host: 8080
+    development.vm.network "forwarded_port", guest: 5432, host: 5432
   end
 
   config.vm.provision 'ansible', run: 'always' do | ansible |

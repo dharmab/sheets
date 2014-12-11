@@ -3,13 +3,13 @@ package com.dharmab.sheets.server.character;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@SuppressWarnings("ALL")
 @Entity
 @Table(name = "characters")
 public class Character {
     private Integer id;
     private Integer version;
     private String name;
+    private String characterClass;
     private int level;
     private String background;
     private String race;
@@ -30,7 +30,8 @@ public class Character {
     public Character() {
         // Default values
         name = "New Character";
-        background = "Unknown";
+        characterClass = "None";
+        background = "None";
         race = "Human";
         level = 1;
         speed = 5;
@@ -66,6 +67,15 @@ public class Character {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Column(name = "character_class")
+    public String getCharacterClass() {
+        return characterClass;
+    }
+
+    public void setCharacterClass(String characterClass) {
+        this.characterClass = characterClass;
     }
 
     @Column(name = "level")

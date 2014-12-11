@@ -2,7 +2,8 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
     <g:HTMLPanel>
         <g:HorizontalPanel ui:field="panel">
-            <g:Anchor ui:field="name"/>
+            <g:Button ui:field="edit" text="edit"/>
+            <g:Label ui:field="name"/>
         </g:HorizontalPanel>
     </g:HTMLPanel>
 </ui:UiBinder>

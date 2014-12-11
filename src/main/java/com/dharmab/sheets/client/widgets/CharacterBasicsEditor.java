@@ -10,17 +10,25 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 
-public class CharacterEditor extends Composite implements Editor<CharacterProxy> {
-    private static CharacterEditorUiBinder ourUiBinder = GWT.create(CharacterEditorUiBinder.class);
+public class CharacterBasicsEditor extends Composite implements Editor<CharacterProxy> {
+    private static CharacterBasicsEditorUiBinder ourUiBinder = GWT.create(CharacterBasicsEditorUiBinder.class);
     @UiField
     TextBox name;
     @UiField
+    TextBox characterClass;
+    @UiField
+    IntegerSpinner level;
+    @UiField
     TextBox background;
+    @UiField
+    TextBox race;
+    @UiField
+    IntegerSpinner experiencePoints;
 
-    public CharacterEditor() {
+    public CharacterBasicsEditor() {
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
-    interface CharacterEditorUiBinder extends UiBinder<HTMLPanel, CharacterEditor> {
+    interface CharacterBasicsEditorUiBinder extends UiBinder<HTMLPanel, CharacterBasicsEditor> {
     }
 }

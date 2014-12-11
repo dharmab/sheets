@@ -8,10 +8,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.*;
 import com.google.web.bindery.event.shared.EventBus;
 
 
@@ -20,7 +17,10 @@ public class CharacterQuickView extends Composite implements LeafValueEditor<Cha
     @UiField
     Panel panel;
     @UiField
-    Anchor name;
+    Label name;
+    @UiField
+    Button edit;
+
     private EventBus eventBus;
     private CharacterProxy character;
     private Integer id;
@@ -45,7 +45,7 @@ public class CharacterQuickView extends Composite implements LeafValueEditor<Cha
     interface CharacterQuickViewUiBinder extends UiBinder<HTMLPanel, CharacterQuickView> {
     }
 
-    @UiHandler("name")
+    @UiHandler("edit")
     public void goToCharacterEditor(@SuppressWarnings("UnusedParameters") ClickEvent event) {
         eventBus.fireEvent(new CharacterSelectionEvent(id));
     }

@@ -11,6 +11,10 @@ public interface CharacterProxy extends EntityProxy {
 
     Integer getVersion();
 
+    String getCharacterClass();
+
+    void setCharacterClass(String characterClass);
+
     String getName();
 
     void setName(String name);

@@ -1,0 +1,1 @@
+ALTER TABLE characters ADD COLUMN character_class TEXT NOT NULL DEFAULT 'None';
