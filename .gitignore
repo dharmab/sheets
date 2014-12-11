@@ -1,5 +1,6 @@
 .idea
 .settings
 .vagrant
+.gwt
 target
 sheets.iml
