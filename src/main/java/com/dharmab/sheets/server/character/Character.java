@@ -269,7 +269,7 @@ public class Character {
      *
      * @param ignored Value is not used.
      */
-    @SuppressWarnings("UnusedDeclaration")
+    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
     private void setStrengthModifier(int ignored) {
 
     }
@@ -284,7 +284,7 @@ public class Character {
      *
      * @param ignored Value is not used.
      */
-    @SuppressWarnings("UnusedDeclaration")
+    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
     public void setDexterityModifier(int ignored) {
 
     }
@@ -299,7 +299,7 @@ public class Character {
      *
      * @param ignored Value is not used.
      */
-    @SuppressWarnings("UnusedDeclaration")
+    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
     public void setConstitutionModifier(int ignored) {
 
     }
@@ -314,7 +314,7 @@ public class Character {
      *
      * @param ignored Value is not used.
      */
-    @SuppressWarnings("UnusedDeclaration")
+    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
     public void setIntelligenceModifier(int ignored) {
 
     }
@@ -329,7 +329,7 @@ public class Character {
      *
      * @param ignored Value is not used.
      */
-    @SuppressWarnings("UnusedDeclaration")
+    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
     public void setWisdomModifier(int ignored) {
 
     }
@@ -344,7 +344,7 @@ public class Character {
      *
      * @param ignored Value is not used.
      */
-    @SuppressWarnings("UnusedDeclaration")
+    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
     public void setCharismaModifier(int ignored) {
 
     }

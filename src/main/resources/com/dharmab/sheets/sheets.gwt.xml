@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress XmlUnboundNsPrefix, XmlUnboundNsPrefix -->
 <module rename-to='sheets'>
     <entry-point class='com.dharmab.sheets.client.Sheets'/>
 

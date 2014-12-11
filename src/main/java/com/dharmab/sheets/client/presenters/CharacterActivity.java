@@ -22,7 +22,6 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     private CharacterView view;
     private Driver driver;
     private CharacterProxy character;
-    private PlaceController placeController;
     private Logger logger = Logger.getLogger("com.dharmab.sheets.client.presenters.CharacterActivity");
 
     @Inject
@@ -34,7 +33,6 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         this.view = view;
         this.requestFactory = requestFactory;
         this.driver = driver;
-        this.placeController = placeController;
         driver.initialize(requestFactory, view.asEditor());
 
         try {

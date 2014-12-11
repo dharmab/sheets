@@ -1,3 +1,4 @@
+<!--suppress XmlUnboundNsPrefix -->
 <Context>
     <Resource name="jdbc/postgresql"
               auth="Container"

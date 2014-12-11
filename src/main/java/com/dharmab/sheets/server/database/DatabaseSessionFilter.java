@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Singleton
 public class DatabaseSessionFilter implements Filter {
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Inject
     public DatabaseSessionFilter(SessionFactory sessionFactory) {
