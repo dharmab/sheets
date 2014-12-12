@@ -3,12 +3,31 @@
   yum: name=python-psycopg2
   sudo: yes
 
+- name: create application directory
+  file: path=/opt/sheets state=directory owner=root group=root
+  sudo: yes
+
 - name: install tomcat
   yum: name={{ item }}
   with_items:
     - tomcat
     - apache-commons-dbcp
   sudo: yes
+
+- name: copy tomcat server configuration
+  copy: src=server.xml dest=/usr/share/tomcat/conf/server.xml owner=tomcat group=tomcat
+  sudo: yes
+  notify: restart tomcat
+
+- name: copy insecure SSL key
+  copy: src=keystore dest=/etc/tomcat/keystore owner=tomcat group=tomcat
+  sudo: yes
+  notify: restart tomcat
+
+- name: set tomcat root appliqcation
+  copy: src=ROOT.xml dest=/usr/share/tomcat/conf/Catalina/localhost/ROOT.xml owner=tomcat group=tomcat
+  sudo: yes
+  notify: restart tomcat
 
 - name: enable tomcat
   service: name=tomcat state=started enabled=yes
@@ -20,8 +39,9 @@
   register: postgresql_installation
 
 - name: download postgresql jdbc driver
-  get_url: url=http://jdbc.postgresql.org/download/postgresql-9.3-1102.jdbc41.jar dest=/usr/share/tomcat/lib/
+  get_url: url=http://jdbc.postgresql.org/download/postgresql-9.3-1102.jdbc41.jar dest=/usr/share/tomcat/lib/ owner=root group=root
   sudo: yes
+  notify: restart tomcat
 
 - name: initialize postgresql
   command: /usr/bin/postgresql-setup initdb
@@ -54,11 +74,12 @@
   sudo_user: postgres
 
 - name: redirect HTTP/HTTPS to tomcat
-  firewalld: rich_rule='rule family="ipv4" forward-port port="{{ item }}" protocol="tcp" to-port="8080"' permanent=true state=enabled
+  firewalld: rich_rule='rule family="ipv4" forward-port port="{{ item.src }}" protocol="tcp" to-port="{{ item.dest }}"' permanent=true state=enabled
   with_items:
-    - 80
-    - 443
+    - { src: 80, dest: 8080 }
+    - { src: 443, dest: 8443 }
   sudo: yes
+  notify: reload firewall
 
 - name: open firewall ports
   firewalld: port={{ item }} permanent=true state=enabled

@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn verify && vagrant ssh -c "sudo cp -f /vagrant/target/*.war /var/lib/tomcat/webapps"
+mvn verify && vagrant ssh -c "sudo cp -f /vagrant/target/sheets*.war /opt/sheets/sheets.war"

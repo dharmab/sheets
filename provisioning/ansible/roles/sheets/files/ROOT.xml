@@ -1,5 +1,4 @@
-<!--suppress XmlUnboundNsPrefix -->
-<Context>
+<Context docBase="/opt/sheets/sheets.war">
     <Resource name="jdbc/postgresql"
               auth="Container"
               type="javax.sql.DataSource"
