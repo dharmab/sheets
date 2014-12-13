@@ -3,6 +3,7 @@ package com.dharmab.sheets.server.character;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "characters")
@@ -69,12 +70,13 @@ public class Character {
 
     @Column(name = "name")
     @NotNull
+    @Pattern(regexp = "\\S+", message = "character name cannot be empty")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 
     /**

@@ -1,16 +1,28 @@
 package com.dharmab.sheets.server.entities;
 
 import com.dharmab.sheets.server.character.Character;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CharacterTest {
-
     private static final Map<Integer, Integer> abilityScoreModifierLookup = buildAbilityScoreModifierLookup();
+    private ValidatorFactory validatorFactory;
+    private Validator validator;
+    private Character character;
+
+    public CharacterTest() {
+        this.validatorFactory = Validation.buildDefaultValidatorFactory();
+    }
 
     private static Map<Integer, Integer> buildAbilityScoreModifierLookup() {
         Map<Integer, Integer> map = new HashMap<>();
@@ -50,9 +62,20 @@ public class CharacterTest {
         return map;
     }
 
+    @Before
+    public void setUp() throws Exception {
+        character = new Character();
+        validator = validatorFactory.getValidator();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        character = null;
+        validator = null;
+    }
+
     @Test
     public void strengthModifierTest() {
-        com.dharmab.sheets.server.character.Character character = new Character();
         for (int score = 1; score <= 30; score++) {
             character.setStrength(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getStrengthModifier());
@@ -61,7 +84,6 @@ public class CharacterTest {
 
     @Test
     public void dexterityModifierTest() {
-        Character character = new Character();
         for (int score = 1; score <= 30; score++) {
             character.setDexterity(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getDexterityModifier());
@@ -70,7 +92,6 @@ public class CharacterTest {
 
     @Test
     public void constitutionModifierTest() {
-        Character character = new Character();
         for (int score = 1; score <= 30; score++) {
             character.setConstitution(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getConstitutionModifier());
@@ -79,7 +100,6 @@ public class CharacterTest {
 
     @Test
     public void intelligenceModifierTest() {
-        Character character = new Character();
         for (int score = 1; score <= 30; score++) {
             character.setIntelligence(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getIntelligenceModifier());
@@ -88,7 +108,6 @@ public class CharacterTest {
 
     @Test
     public void wisdomModifierTest() {
-        Character character = new Character();
         for (int score = 1; score <= 30; score++) {
             character.setWisdom(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getWisdomModifier());
@@ -97,10 +116,43 @@ public class CharacterTest {
 
     @Test
     public void charismaModifierTest() {
-        Character character = new Character();
         for (int score = 1; score <= 30; score++) {
             character.setCharisma(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getCharismaModifier());
         }
+    }
+
+    @Test
+    public void testSimpleName() {
+        character.setName("John");
+        assertEquals("John", character.getName());
+    }
+
+    @Test
+    public void testFullName() {
+        character.setName("John Doe");
+        assertEquals("John Doe", character.getName());
+    }
+
+    @Test
+    public void testNameWithTrailingWhitespace() {
+        character.setName("John Doe ");
+        assertEquals("John Doe", character.getName());
+    }
+
+    @Test
+    public void testNameWithLeadingWhitespace() {
+        character.setName(" John Doe");
+        assertTrue(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testNameWithEmptyString() {
+        character.setName("");
+        assertTrue(hasConstraintViolations(character));
+    }
+
+    private boolean hasConstraintViolations(Character character) {
+        return !validator.validate(character).isEmpty();
     }
 }
