@@ -13,8 +13,8 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.validation.ConstraintViolation;
+import java.util.Set;
 
 public class CharacterActivity extends AppActivity implements CharacterPresenter {
 
@@ -22,13 +22,13 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     private CharacterView view;
     private Driver driver;
     private CharacterProxy character;
-    private Logger logger = Logger.getLogger("com.dharmab.sheets.client.presenters.CharacterActivity");
 
     @Inject
     public CharacterActivity(@Assisted CharacterPlace place,
                              CharacterView view,
                              AppRequestFactory requestFactory,
-                             Driver driver, EventBus eventBus,
+                             Driver driver,
+                             EventBus eventBus,
                              PlaceController placeController) {
         this.view = view;
         this.requestFactory = requestFactory;
@@ -60,19 +60,25 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
 
     @Override
     public void save() {
-        logger.log(Level.WARNING, "DEBUG: Before flush: " + character.getName());
         AppRequestFactory.CharacterRequest request = (AppRequestFactory.CharacterRequest) driver.flush();
-        logger.log(Level.WARNING, "DEBUG: After flush: " + character.getName());
         request.fire(new Receiver<Void>() {
             @Override
-            public void onSuccess(Void response) {
-                logger.log(Level.WARNING, "DEBUG: After fire(), before edit(): " + character.getName());
+            public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
+                StringBuilder builder = new StringBuilder();
+                for (ConstraintViolation<?> violation : violations) {
+                    builder.append(violation.getMessage());
+                    builder.append("\n");
+                }
+                view.showErrorMessage(builder.toString());
+            }
 
+            @Override
+            public void onSuccess(Void response) {
                 requestFactory.characterRequest().get(character.getId()).fire(new Receiver<CharacterProxy>() {
                     @Override
                     public void onSuccess(CharacterProxy response) {
+                        view.hideErrorMessage();
                         edit(response);
-                        logger.log(Level.WARNING, "DEBUG: After edit(): " + character.getName());
                     }
                 });
             }

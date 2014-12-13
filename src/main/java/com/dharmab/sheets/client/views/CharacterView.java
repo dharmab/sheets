@@ -7,4 +7,8 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 public interface CharacterView extends IsWidget, IsEditor<CharacterBasicsEditor> {
     void setPresenter(CharacterPresenter presenter);
+
+    void showErrorMessage(String message);
+
+    void hideErrorMessage();
 }

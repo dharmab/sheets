@@ -11,6 +11,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Label;
 
 
 public class CharacterViewImpl extends Composite implements CharacterView, IsEditor<CharacterBasicsEditor> {
@@ -19,6 +20,9 @@ public class CharacterViewImpl extends Composite implements CharacterView, IsEdi
     CharacterBasicsEditor characterEditor;
     @UiField
     Button save;
+    @UiField
+    Label errorMessageLabel;
+
     private CharacterPresenter presenter;
 
     public CharacterViewImpl() {
@@ -35,11 +39,23 @@ public class CharacterViewImpl extends Composite implements CharacterView, IsEdi
         this.presenter = presenter;
     }
 
-    interface CharacterViewUiBinder extends UiBinder<HTMLPanel, CharacterViewImpl> {
+    @Override
+    public void showErrorMessage(String message) {
+        errorMessageLabel.setText(message);
+        errorMessageLabel.setVisible(true);
+    }
+
+    @Override
+    public void hideErrorMessage() {
+        errorMessageLabel.setText("");
+        errorMessageLabel.setVisible(false);
     }
 
     @UiHandler("save")
     public void handleClick(@SuppressWarnings("UnusedParameters") ClickEvent event) {
         presenter.save();
+    }
+
+    interface CharacterViewUiBinder extends UiBinder<HTMLPanel, CharacterViewImpl> {
     }
 }

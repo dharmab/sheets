@@ -1,6 +1,7 @@
 package com.dharmab.sheets.server.character;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -92,6 +93,7 @@ public class Character {
 
     @Column(name = "level")
     @NotNull
+    @Min(value = 1, message = "character level must be 1 or higher")
     public int getLevel() {
         return level;
     }
@@ -122,6 +124,7 @@ public class Character {
 
     @Column(name = "experience_points")
     @NotNull
+    @Min(value = 0, message = "experience points cannot be negative")
     public int getExperiencePoints() {
         return experiencePoints;
     }
@@ -132,6 +135,7 @@ public class Character {
 
     @Column(name = "strength")
     @NotNull
+    @Min(value = 0, message = "strength score cannot be negative")
     public int getStrength() {
         return strength;
     }
@@ -142,6 +146,7 @@ public class Character {
 
     @Column(name = "dexterity")
     @NotNull
+    @Min(value = 0, message = "dexterity score cannot be negative")
     public int getDexterity() {
         return dexterity;
     }
@@ -152,6 +157,7 @@ public class Character {
 
     @Column(name = "constitution")
     @NotNull
+    @Min(value = 0, message = "constitution score cannot be negative")
     public int getConstitution() {
         return constitution;
     }
@@ -162,6 +168,7 @@ public class Character {
 
     @Column(name = "intelligence")
     @NotNull
+    @Min(value = 0, message = "intelligence score cannot be negative")
     public int getIntelligence() {
         return intelligence;
     }
@@ -172,6 +179,7 @@ public class Character {
 
     @Column(name = "wisdom")
     @NotNull
+    @Min(value = 0, message = "wisdom score cannot be negative")
     public int getWisdom() {
         return wisdom;
     }
@@ -182,6 +190,7 @@ public class Character {
 
     @Column(name = "charisma")
     @NotNull
+    @Min(value = 0, message = "charisma score cannot be negative")
     public int getCharisma() {
         return charisma;
     }
@@ -202,6 +211,7 @@ public class Character {
 
     @Column(name = "initiative")
     @NotNull
+    @Min(value = 0, message = "initiative cannot be negative")
     public int getInitiative() {
         return initiative;
     }
@@ -291,6 +301,7 @@ public class Character {
 
     @Column(name = "proficiency")
     @NotNull
+    @Min(value = 0, message = "proficiency bonus cannot be negative")
     public int getProficiency() {
         return proficiency;
     }
