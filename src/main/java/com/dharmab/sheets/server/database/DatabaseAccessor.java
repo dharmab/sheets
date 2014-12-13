@@ -22,7 +22,7 @@ public interface DatabaseAccessor {
     public void delete(Character character);
 
     /**
-     * Retreive the record matching the given ID from the database.
+     * Retrieve the record matching the given ID from the database.
      *
      * @param id ID of character to retrieve.
      * @return Character identified by the given ID
