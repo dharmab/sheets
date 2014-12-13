@@ -5,14 +5,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CharacterTest {
     private static final Map<Integer, Integer> abilityScoreModifierLookup = buildAbilityScoreModifierLookup();
@@ -79,6 +80,7 @@ public class CharacterTest {
         for (int score = 1; score <= 30; score++) {
             character.setStrength(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getStrengthModifier());
+            assertFalse(hasConstraintViolations(character));
         }
     }
 
@@ -87,6 +89,7 @@ public class CharacterTest {
         for (int score = 1; score <= 30; score++) {
             character.setDexterity(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getDexterityModifier());
+            assertFalse(hasConstraintViolations(character));
         }
     }
 
@@ -95,6 +98,7 @@ public class CharacterTest {
         for (int score = 1; score <= 30; score++) {
             character.setConstitution(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getConstitutionModifier());
+            assertFalse(hasConstraintViolations(character));
         }
     }
 
@@ -103,6 +107,7 @@ public class CharacterTest {
         for (int score = 1; score <= 30; score++) {
             character.setIntelligence(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getIntelligenceModifier());
+            assertFalse(hasConstraintViolations(character));
         }
     }
 
@@ -111,6 +116,7 @@ public class CharacterTest {
         for (int score = 1; score <= 30; score++) {
             character.setWisdom(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getWisdomModifier());
+            assertFalse(hasConstraintViolations(character));
         }
     }
 
@@ -119,6 +125,7 @@ public class CharacterTest {
         for (int score = 1; score <= 30; score++) {
             character.setCharisma(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getCharismaModifier());
+            assertFalse(hasConstraintViolations(character));
         }
     }
 
@@ -126,24 +133,28 @@ public class CharacterTest {
     public void testSimpleName() {
         character.setName("John");
         assertEquals("John", character.getName());
+        assertFalse(hasConstraintViolations(character));
     }
 
     @Test
     public void testFullName() {
         character.setName("John Doe");
         assertEquals("John Doe", character.getName());
+        assertFalse(hasConstraintViolations(character));
     }
 
     @Test
     public void testNameWithTrailingWhitespace() {
         character.setName("John Doe ");
         assertEquals("John Doe", character.getName());
+        assertFalse(hasConstraintViolations(character));
     }
 
     @Test
     public void testNameWithLeadingWhitespace() {
         character.setName(" John Doe");
-        assertTrue(hasConstraintViolations(character));
+        assertEquals("John Doe", character.getName());
+        assertFalse(hasConstraintViolations(character));
     }
 
     @Test
@@ -152,7 +163,13 @@ public class CharacterTest {
         assertTrue(hasConstraintViolations(character));
     }
 
+    @Test
+    public void testNewCharacterDoesNotViolateConstraints() {
+        assertFalse(hasConstraintViolations(character));
+    }
+
     private boolean hasConstraintViolations(Character character) {
-        return !validator.validate(character).isEmpty();
+        Set<ConstraintViolation<Character>> violations = validator.validate(character);
+        return !violations.isEmpty();
     }
 }

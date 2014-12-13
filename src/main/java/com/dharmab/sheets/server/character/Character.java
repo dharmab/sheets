@@ -37,13 +37,20 @@ public class Character {
         background = "None";
         race = "Human";
         level = 1;
-        speed = 5;
+        experiencePoints = 0;
         strength = 8;
         dexterity = 8;
         constitution = 8;
         intelligence = 8;
         wisdom = 8;
         charisma = 8;
+        armorClass = 0;
+        initiative = 0;
+        speed = 5;
+        maximumHitPoints = 10;
+        currentHitPoints = 10;
+        temporaryHitPoints = 0;
+        proficiency = 0;
     }
 
     @Id
@@ -70,7 +77,7 @@ public class Character {
 
     @Column(name = "name")
     @NotNull
-    @Pattern(regexp = "\\S+", message = "character name cannot be empty")
+    @Pattern(regexp = "\\S.*", message = "character name must not be empty and start with a non-whitespace character")
     public String getName() {
         return name;
     }

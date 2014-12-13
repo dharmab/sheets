@@ -4,9 +4,9 @@
     <g:HTMLPanel>
         <g:Label text="Character Name"/>
         <g:TextBox ui:field="name"/>
-        <g:Label text="Class"/>
         <g:Label text="Level"/>
         <app:IntegerSpinner ui:field="level"/>
+        <g:Label text="Class"/>
         <g:TextBox ui:field="characterClass"/>
         <g:Label text="Background"/>
         <g:TextBox ui:field="background"/>

@@ -2,8 +2,9 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:sheets='urn:import:com.dharmab.sheets.client.widgets'>
     <g:HTMLPanel>
-        <g:Label ui:field="errorMessageLabel"/>
+        <g:Button ui:field="back" text="Back"/>
         <sheets:CharacterBasicsEditor ui:field="characterEditor"/>
         <g:Button ui:field="save" text="Save Changes"/>
+        <g:Label ui:field="errorMessageLabel"/>
     </g:HTMLPanel>
 </ui:UiBinder>

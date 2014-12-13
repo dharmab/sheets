@@ -19,6 +19,8 @@ public class CharacterViewImpl extends Composite implements CharacterView, IsEdi
     @UiField
     CharacterBasicsEditor characterEditor;
     @UiField
+    Button back;
+    @UiField
     Button save;
     @UiField
     Label errorMessageLabel;
@@ -51,8 +53,13 @@ public class CharacterViewImpl extends Composite implements CharacterView, IsEdi
         errorMessageLabel.setVisible(false);
     }
 
+    @UiHandler("back")
+    public void goBack(@SuppressWarnings("UnusedParameters") ClickEvent event) {
+        presenter.goToWelcomePlace();
+    }
+
     @UiHandler("save")
-    public void handleClick(@SuppressWarnings("UnusedParameters") ClickEvent event) {
+    public void save(@SuppressWarnings("UnusedParameters") ClickEvent event) {
         presenter.save();
     }
 
