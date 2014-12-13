@@ -1,6 +1,7 @@
 package com.dharmab.sheets.client.inject;
 
 import com.dharmab.sheets.client.AppActivityMapper;
+import com.dharmab.sheets.client.places.AppPlaceHistoryMapper;
 import com.dharmab.sheets.client.places.WelcomePlace;
 import com.dharmab.sheets.client.presenters.CharacterActivity;
 import com.dharmab.sheets.client.presenters.CharacterPresenter;
@@ -18,7 +19,6 @@ import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
@@ -53,7 +53,7 @@ public class SheetsGinModule extends AbstractGinModule {
 
     @Provides
     @Singleton
-    PlaceHistoryHandler providePlaceHistoryHandler(PlaceHistoryMapper placeHistoryMapper, PlaceController placeController, EventBus eventBus) {
+    PlaceHistoryHandler providePlaceHistoryHandler(AppPlaceHistoryMapper placeHistoryMapper, PlaceController placeController, EventBus eventBus) {
         PlaceHistoryHandler placeHistoryHandler = new PlaceHistoryHandler(placeHistoryMapper);
         placeHistoryHandler.register(placeController, eventBus, new WelcomePlace());
         return placeHistoryHandler;
