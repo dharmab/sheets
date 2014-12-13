@@ -264,29 +264,9 @@ public class Character {
         return getAbilityModifier(strength);
     }
 
-    /**
-     * No-op setter to satisfy JPA requirements.
-     *
-     * @param ignored Value is not used.
-     */
-    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
-    private void setStrengthModifier(int ignored) {
-
-    }
-
     @Transient
     public int getDexterityModifier() {
         return getAbilityModifier(dexterity);
-    }
-
-    /**
-     * No-op setter to satisfy JPA requirements.
-     *
-     * @param ignored Value is not used.
-     */
-    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
-    public void setDexterityModifier(int ignored) {
-
     }
 
     @Transient
@@ -294,29 +274,9 @@ public class Character {
         return getAbilityModifier(constitution);
     }
 
-    /**
-     * No-op setter to satisfy JPA requirements.
-     *
-     * @param ignored Value is not used.
-     */
-    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
-    public void setConstitutionModifier(int ignored) {
-
-    }
-
     @Transient
     public int getIntelligenceModifier() {
         return getAbilityModifier(intelligence);
-    }
-
-    /**
-     * No-op setter to satisfy JPA requirements.
-     *
-     * @param ignored Value is not used.
-     */
-    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
-    public void setIntelligenceModifier(int ignored) {
-
     }
 
     @Transient
@@ -324,29 +284,9 @@ public class Character {
         return getAbilityModifier(wisdom);
     }
 
-    /**
-     * No-op setter to satisfy JPA requirements.
-     *
-     * @param ignored Value is not used.
-     */
-    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
-    public void setWisdomModifier(int ignored) {
-
-    }
-
     @Transient
     public int getCharismaModifier() {
         return getAbilityModifier(charisma);
-    }
-
-    /**
-     * No-op setter to satisfy JPA requirements.
-     *
-     * @param ignored Value is not used.
-     */
-    @SuppressWarnings({"UnusedDeclaration", "EmptyMethod"})
-    public void setCharismaModifier(int ignored) {
-
     }
 
     @Column(name = "proficiency")
