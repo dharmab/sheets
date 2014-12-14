@@ -8,6 +8,9 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Table(name = "characters")
 public class Character {
+    // Regexp matchs strings that are not empty and start with a non-whitespace character
+    private static final String NAME_REGEXP = "\\S.*";
+
     private Integer id;
     private Integer version;
     private String name;
@@ -23,7 +26,6 @@ public class Character {
     private int wisdom;
     private int charisma;
     private int armorClass;
-    private int initiative;
     private int speed;
     private int maximumHitPoints;
     private int currentHitPoints;
@@ -45,7 +47,6 @@ public class Character {
         wisdom = 8;
         charisma = 8;
         armorClass = 0;
-        initiative = 0;
         speed = 5;
         maximumHitPoints = 10;
         currentHitPoints = 10;
@@ -77,7 +78,7 @@ public class Character {
 
     @Column(name = "name")
     @NotNull
-    @Pattern(regexp = "\\S.*", message = "character name must not be empty and start with a non-whitespace character")
+    @Pattern(regexp = NAME_REGEXP, message = "character name must not be empty and start with a non-whitespace character")
     public String getName() {
         return name;
     }
@@ -92,12 +93,14 @@ public class Character {
      * @return The character's class, e.g. fighter, rogue, wizard.
      */
     @Column(name = "character_class")
+    @NotNull
+    @Pattern(regexp = NAME_REGEXP, message = "character class must not be empty and start with a non-whitespace character")
     public String getCharacterClass() {
         return characterClass;
     }
 
     public void setCharacterClass(String characterClass) {
-        this.characterClass = characterClass;
+        this.characterClass = characterClass.trim();
     }
 
     @Column(name = "level")
@@ -113,22 +116,24 @@ public class Character {
 
     @Column(name = "background")
     @NotNull
+    @Pattern(regexp = NAME_REGEXP, message = "background must not be empty and start with a non-whitespace character")
     public String getBackground() {
         return background;
     }
 
     public void setBackground(String background) {
-        this.background = background;
+        this.background = background.trim();
     }
 
     @Column(name = "race")
     @NotNull
+    @Pattern(regexp = NAME_REGEXP, message = "character race must not be empty and start with a non-whitespace character")
     public String getRace() {
         return race;
     }
 
     public void setRace(String race) {
-        this.race = race;
+        this.race = race.trim();
     }
 
     @Column(name = "experience_points")
@@ -210,6 +215,7 @@ public class Character {
 
     @Column(name = "armor_class")
     @NotNull
+    @Min(value = 0, message = "armor class cannot be negative")
     public int getArmorClass() {
         return armorClass;
     }
@@ -218,19 +224,14 @@ public class Character {
         this.armorClass = armorClass;
     }
 
-    @Column(name = "initiative")
-    @NotNull
-    @Min(value = 0, message = "initiative cannot be negative")
+    @Transient
     public int getInitiative() {
-        return initiative;
-    }
-
-    public void setInitiative(int initiative) {
-        this.initiative = initiative;
+        return getDexterityModifier();
     }
 
     @Column(name = "speed")
     @NotNull
+    @Min(value = 0, message = "speed cannot be negative")
     public int getSpeed() {
         return speed;
     }
@@ -241,6 +242,7 @@ public class Character {
 
     @Column(name = "maximum_hit_points")
     @NotNull
+    @Min(value = 1, message = "maximum hit points must be greater than 0")
     public int getMaximumHitPoints() {
         return maximumHitPoints;
     }
@@ -261,6 +263,7 @@ public class Character {
 
     @Column(name = "temporary_hit_points")
     @NotNull
+    @Min(value = 0, message = "temporary hit points can not be negative")
     public int getTemporaryHitPoints() {
         return temporaryHitPoints;
     }
@@ -275,7 +278,6 @@ public class Character {
         } else {
             return (int) Math.floor((abilityScore - 10) / 2d);
         }
-
     }
 
     @Transient

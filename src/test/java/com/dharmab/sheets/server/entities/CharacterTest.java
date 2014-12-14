@@ -8,21 +8,20 @@ import org.junit.Test;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class CharacterTest {
     private static final Map<Integer, Integer> abilityScoreModifierLookup = buildAbilityScoreModifierLookup();
-    private ValidatorFactory validatorFactory;
-    private Validator validator;
+    private final Validator validator;
     private Character character;
 
     public CharacterTest() {
-        this.validatorFactory = Validation.buildDefaultValidatorFactory();
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
     private static Map<Integer, Integer> buildAbilityScoreModifierLookup() {
@@ -66,17 +65,51 @@ public class CharacterTest {
     @Before
     public void setUp() throws Exception {
         character = new Character();
-        validator = validatorFactory.getValidator();
     }
 
     @After
     public void tearDown() throws Exception {
         character = null;
-        validator = null;
     }
 
     @Test
-    public void strengthModifierTest() {
+    public void testZeroStrength() {
+        character.setStrength(0);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testZeroDexterity() {
+        character.setDexterity(0);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testZeroConstitution() {
+        character.setConstitution(0);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testZeroIntelligence() {
+        character.setIntelligence(0);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testZeroWisdom() {
+        character.setWisdom(0);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testZeroCharisma() {
+        character.setCharisma(0);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testStrengthModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setStrength(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getStrengthModifier());
@@ -85,7 +118,7 @@ public class CharacterTest {
     }
 
     @Test
-    public void dexterityModifierTest() {
+    public void testDexterityModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setDexterity(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getDexterityModifier());
@@ -94,7 +127,7 @@ public class CharacterTest {
     }
 
     @Test
-    public void constitutionModifierTest() {
+    public void testConstitutionModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setConstitution(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getConstitutionModifier());
@@ -103,7 +136,7 @@ public class CharacterTest {
     }
 
     @Test
-    public void intelligenceModifierTest() {
+    public void testIntelligenceModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setIntelligence(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getIntelligenceModifier());
@@ -112,7 +145,7 @@ public class CharacterTest {
     }
 
     @Test
-    public void wisdomModifierTest() {
+    public void testWisdomModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setWisdom(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getWisdomModifier());
@@ -121,11 +154,76 @@ public class CharacterTest {
     }
 
     @Test
-    public void charismaModifierTest() {
+    public void testCharismaModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setCharisma(score);
             assertEquals((int) abilityScoreModifierLookup.get(score), character.getCharismaModifier());
             assertFalse(hasConstraintViolations(character));
+        }
+    }
+
+    @Test
+    public void testZeroLevel() {
+        character.setLevel(0);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testLevelValues() {
+        for (int level = 1; level <= 20; level++) {
+            character.setLevel(level);
+            assertEquals(character.getLevel(), level);
+            assertFalse(hasConstraintViolations(character));
+        }
+    }
+
+    @Test
+    public void testNegativeExperiencePoints() {
+        character.setExperiencePoints(-1);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testZeroExperiencePoints() {
+        character.setExperiencePoints(0);
+        assertEquals(character.getExperiencePoints(), 0);
+        assertFalse(hasConstraintViolations(character));
+
+    }
+
+    @Test
+    public void testPositiveExperiencePoints() throws Exception {
+        character.setExperiencePoints(1);
+        assertEquals(character.getExperiencePoints(), 1);
+        assertFalse(hasConstraintViolations(character));
+
+    }
+
+    @Test
+    public void testNegativeArmorClass() throws Exception {
+        character.setArmorClass(-1);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testZeroArmorClass() throws Exception {
+        character.setArmorClass(0);
+        assertEquals(character.getArmorClass(), 0);
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testPositiveArmorClass() throws Exception {
+        character.setArmorClass(1);
+        assertEquals(character.getArmorClass(), 1);
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testInitiativeValues() {
+        for (int dexterity = 1; dexterity <= 30; dexterity++) {
+            character.setDexterity(dexterity);
+            assertEquals(character.getInitiative(), (int) abilityScoreModifierLookup.get(dexterity));
         }
     }
 
@@ -160,7 +258,53 @@ public class CharacterTest {
     @Test
     public void testNameWithEmptyString() {
         character.setName("");
-        assertTrue(hasConstraintViolations(character));
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testNameWithWhitespaceString() {
+        character.setName(" ");
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testSimpleCharacterClass() {
+        character.setCharacterClass("Fighter");
+        assertEquals("Fighter", character.getCharacterClass());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testComplexCharacterClass() {
+        character.setCharacterClass("Drow Ranger");
+        assertEquals("Drow Ranger", character.getCharacterClass());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testCharacterClassWithTrailingWhitespace() {
+        character.setCharacterClass("Drow Ranger ");
+        assertEquals("Drow Ranger", character.getCharacterClass());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testCharacterClassWithLeadingWhitespace() {
+        character.setCharacterClass(" Drow Ranger");
+        assertEquals("Drow Ranger", character.getCharacterClass());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testCharacterClassWithEmptyString() {
+        character.setCharacterClass("");
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testCharacterClassWithWhitespaceString() {
+        character.setCharacterClass(" ");
+        assertEquals(numberOfConstraintViolations(character), 1);
     }
 
     @Test
@@ -168,8 +312,92 @@ public class CharacterTest {
         assertFalse(hasConstraintViolations(character));
     }
 
+    @Test
+    public void testSimpleBackground() {
+        character.setBackground("Wanderer");
+        assertEquals("Wanderer", character.getBackground());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testComplexBackground() {
+        character.setBackground("Traveling Minstrel");
+        assertEquals("Traveling Minstrel", character.getBackground());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testBackgroundWithTrailingWhitespace() {
+        character.setBackground("Traveling Minstrel ");
+        assertEquals("Traveling Minstrel", character.getBackground());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testBackgroundWithLeadingWhitespace() {
+        character.setBackground(" Traveling Minstrel");
+        assertEquals("Traveling Minstrel", character.getBackground());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testBackgroundWithEmptyString() {
+        character.setBackground("");
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testBackgroundWithWhitespaceString() {
+        character.setBackground(" ");
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testSimpleRace() {
+        character.setRace("Drow");
+        assertEquals("Drow", character.getRace());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testFullRace() {
+        character.setRace("Fire Elemental");
+        assertEquals("Fire Elemental", character.getRace());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testRaceWithTrailingWhitespace() {
+        character.setRace("Fire Elemental ");
+        assertEquals("Fire Elemental", character.getRace());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testRaceWithLeadingWhitespace() {
+        character.setRace(" Fire Elemental");
+        assertEquals("Fire Elemental", character.getRace());
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testRaceWithEmptyString() {
+        character.setRace("");
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testRaceWithWhitespaceString() {
+        character.setRace(" ");
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
     private boolean hasConstraintViolations(Character character) {
+        return numberOfConstraintViolations(character) != 0;
+    }
+
+    private int numberOfConstraintViolations(Character character) {
         Set<ConstraintViolation<Character>> violations = validator.validate(character);
-        return !violations.isEmpty();
+        return violations.size();
     }
 }
