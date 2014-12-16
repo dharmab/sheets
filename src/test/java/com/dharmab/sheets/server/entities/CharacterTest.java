@@ -307,6 +307,13 @@ public class CharacterTest {
         assertEquals(numberOfConstraintViolations(character), 1);
     }
 
+    // todo: character level range 1-30
+    // todo: ability scores range 1-30
+    // todo: ac range negative/nonnegative
+    // todo: initative = dexmod
+    // todo speed>= 5ft
+
+
     @Test
     public void testNewCharacterDoesNotViolateConstraints() {
         assertFalse(hasConstraintViolations(character));

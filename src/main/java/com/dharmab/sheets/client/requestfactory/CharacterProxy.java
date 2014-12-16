@@ -65,8 +65,6 @@ public interface CharacterProxy extends EntityProxy {
 
     int getInitiative();
 
-    void setInitiative(int initiative);
-
     int getSpeed();
 
     void setSpeed(int speed);
