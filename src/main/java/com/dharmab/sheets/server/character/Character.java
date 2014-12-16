@@ -1,6 +1,7 @@
 package com.dharmab.sheets.server.character;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -23,12 +24,42 @@ public class Character {
     private int wisdom;
     private int charisma;
     private int armorClass;
-    private int initiative;
     private int speed;
     private int maximumHitPoints;
     private int currentHitPoints;
     private int temporaryHitPoints;
     private int proficiency;
+    private boolean inspiration;
+    private int maxHitDice;
+    private int currentHitDice;
+    private DieType hitDie;
+    private int deathSavingThrowSuccesses;
+    private int deathSavingThrowFailures;
+    private int maxFirstLevelSpellSlots;
+    private int currentFirstLevelSpellSlots;
+    private int maxSecondLevelSpellSlots;
+    private int currentSecondLevelSpellSlots;
+    private int maxThirdLevelSpellSlots;
+    private int currentThirdLevelSpellSlots;
+    private int maxFourthLevelSpellSlots;
+    private int currentFourthLevelSpellSlots;
+    private int maxFifthLevelSpellSlots;
+    private int currentFifthLevelSpellSlots;
+    private int maxSixthLevelSpellSlots;
+    private int currentSixthLevelSpellSlots;
+    private int maxSeventhLevelSpellSlots;
+    private int currentSeventhLevelSpellSlots;
+    private int maxEighthLevelSpellSlots;
+    private int currentEighthLevelSpellSlots;
+    private int maxNinthLevelSpellSlots;
+    private int currentNinthLevelSpellSlots;
+    // todo traits, ideals, bonds, flaws
+    // todo proficiences
+    // todo languages
+    // todo equipment
+    // todo features
+    // todo spells
+    // todo items
 
     public Character() {
         // Default values
@@ -44,13 +75,12 @@ public class Character {
         intelligence = 8;
         wisdom = 8;
         charisma = 8;
-        armorClass = 0;
-        initiative = 0;
+        armorClass = 10;
         speed = 5;
         maximumHitPoints = 10;
         currentHitPoints = 10;
         temporaryHitPoints = 0;
-        proficiency = 0;
+        proficiency = 2;
     }
 
     @Id
@@ -210,6 +240,7 @@ public class Character {
 
     @Column(name = "armor_class")
     @NotNull
+    @Min(value = 0, message = "armor class cannot be negative")
     public int getArmorClass() {
         return armorClass;
     }
@@ -218,19 +249,14 @@ public class Character {
         this.armorClass = armorClass;
     }
 
-    @Column(name = "initiative")
-    @NotNull
-    @Min(value = 0, message = "initiative cannot be negative")
+    @Transient
     public int getInitiative() {
-        return initiative;
-    }
-
-    public void setInitiative(int initiative) {
-        this.initiative = initiative;
+        return getDexterityModifier();
     }
 
     @Column(name = "speed")
     @NotNull
+    @Min(value = 5, message = "speed cannot be less than 5 feet")
     public int getSpeed() {
         return speed;
     }
@@ -241,6 +267,7 @@ public class Character {
 
     @Column(name = "maximum_hit_points")
     @NotNull
+    @Min(value = 1, message = "maximum hit points cannot be less than 1")
     public int getMaximumHitPoints() {
         return maximumHitPoints;
     }
@@ -251,6 +278,7 @@ public class Character {
 
     @Column(name = "current_hit_points")
     @NotNull
+    // todo: min hit points = -conmod, max = maxhitpoints
     public int getCurrentHitPoints() {
         return currentHitPoints;
     }
@@ -261,6 +289,7 @@ public class Character {
 
     @Column(name = "temporary_hit_points")
     @NotNull
+    @Min(value = 0, message = "temporary hit points cannot be negative")
     public int getTemporaryHitPoints() {
         return temporaryHitPoints;
     }
@@ -308,9 +337,15 @@ public class Character {
         return getAbilityModifier(charisma);
     }
 
+    @Transient
+    public int getPassiveWisdom() {
+        return getWisdomModifier() + 10;
+    }
+
     @Column(name = "proficiency")
     @NotNull
-    @Min(value = 0, message = "proficiency bonus cannot be negative")
+    @Min(value = 2, message = "proficiency bonus cannot be less than 2")
+    @Max(value = 6, message = "proficiency bonus cannot be greater than 6")
     public int getProficiency() {
         return proficiency;
     }
