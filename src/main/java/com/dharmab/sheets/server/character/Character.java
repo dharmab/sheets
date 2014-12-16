@@ -32,7 +32,7 @@ public class Character {
     private int currentHitPoints;
     private int temporaryHitPoints;
     private int proficiency;
-    private boolean inspiration;
+    private boolean hasInspirationPoint;
     private int maxHitDice;
     private int currentHitDice;
     private DieType hitDie;
@@ -137,7 +137,8 @@ public class Character {
 
     @Column(name = "level")
     @NotNull
-    @Min(value = 1, message = "character level must be 1 or higher")
+    @Min(value = 1, message = "character level must be in range 1-30")
+    @Max(value = 30, message = "character level must be in range 1-30")
     public int getLevel() {
         return level;
     }

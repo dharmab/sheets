@@ -307,12 +307,47 @@ public class CharacterTest {
         assertEquals(numberOfConstraintViolations(character), 1);
     }
 
-    // todo: character level range 1-30
-    // todo: ability scores range 1-30
-    // todo: ac range negative/nonnegative
-    // todo: initative = dexmod
-    // todo speed>= 5ft
+    @Test
+    public void testNegativeCharacterLevel() {
+        character.setLevel(-1);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
 
+    @Test
+    public void testZeroCharacterLevel() throws Exception {
+        character.setLevel(0);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testLevelOneCharacter() throws Exception {
+        character.setLevel(1);
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testLevelThirtyCharacter() {
+        character.setLevel(30);
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testLevelThirtyOneCharacter() {
+        character.setLevel(31);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testLessThanFiveSpeed() throws Exception {
+        character.setSpeed(4);
+        assertEquals(numberOfConstraintViolations(character), 1);
+    }
+
+    @Test
+    public void testFiveSpeed() throws Exception {
+        character.setSpeed(5);
+        assertFalse(hasConstraintViolations(character));
+    }
 
     @Test
     public void testNewCharacterDoesNotViolateConstraints() {
