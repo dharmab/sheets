@@ -12,22 +12,23 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.inject.Inject;
 
 
 public class CharacterViewImpl extends Composite implements CharacterView, IsEditor<CharacterBasicsEditor> {
     private static CharacterViewUiBinder ourUiBinder = GWT.create(CharacterViewUiBinder.class);
-    @UiField
+    @UiField(provided = true)
     CharacterBasicsEditor characterEditor;
     @UiField
     Button back;
-    @UiField
-    Button save;
     @UiField
     Label errorMessageLabel;
 
     private CharacterPresenter presenter;
 
-    public CharacterViewImpl() {
+    @Inject
+    public CharacterViewImpl(CharacterBasicsEditor characterEditor) {
+        this.characterEditor = characterEditor;
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
@@ -56,11 +57,6 @@ public class CharacterViewImpl extends Composite implements CharacterView, IsEdi
     @UiHandler("back")
     public void goBack(@SuppressWarnings("UnusedParameters") ClickEvent event) {
         presenter.goToWelcomePlace();
-    }
-
-    @UiHandler("save")
-    public void save(@SuppressWarnings("UnusedParameters") ClickEvent event) {
-        presenter.save();
     }
 
     interface CharacterViewUiBinder extends UiBinder<HTMLPanel, CharacterViewImpl> {

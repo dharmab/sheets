@@ -4,7 +4,6 @@
     <g:HTMLPanel>
         <g:Button ui:field="back" text="Back"/>
         <sheets:CharacterBasicsEditor ui:field="characterEditor"/>
-        <g:Button ui:field="save" text="Save Changes"/>
         <g:Label ui:field="errorMessageLabel"/>
     </g:HTMLPanel>
 </ui:UiBinder>

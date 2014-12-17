@@ -1,5 +1,7 @@
 package com.dharmab.sheets.client.presenters;
 
+import com.dharmab.sheets.client.events.CharacterEditEvent;
+import com.dharmab.sheets.client.events.CharacterEditEventHandler;
 import com.dharmab.sheets.client.places.CharacterPlace;
 import com.dharmab.sheets.client.places.WelcomePlace;
 import com.dharmab.sheets.client.requestfactory.AppRequestFactory;
@@ -18,13 +20,15 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 
-public class CharacterActivity extends AppActivity implements CharacterPresenter {
+public class CharacterActivity extends AppActivity implements CharacterPresenter, CharacterEditEventHandler {
 
     private AppRequestFactory requestFactory;
     private CharacterView view;
     private Driver driver;
     private CharacterProxy character;
     private PlaceController placeController;
+    private EventBus eventBus;
+    private Integer characterId;
 
     @Inject
     public CharacterActivity(@Assisted CharacterPlace place,
@@ -37,15 +41,18 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         this.requestFactory = requestFactory;
         this.driver = driver;
         this.placeController = placeController;
-
-        driver.initialize(requestFactory, view.asEditor());
+        this.eventBus = eventBus;
 
         try {
-            Integer id = Integer.parseInt(place.getToken());
-            edit(id);
+            characterId = Integer.parseInt(place.getToken());
         } catch (NumberFormatException e) {
             goToCharacterNotFoundPlace();
         }
+
+        driver.initialize(requestFactory, view.asEditor());
+        eventBus.addHandler(CharacterEditEvent.TYPE, this);
+
+        refreshCharacter();
 
         view.setPresenter(this);
         view.hideErrorMessage();
@@ -56,9 +63,10 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         AppRequestFactory.CharacterRequest request = requestFactory.characterRequest();
         request.edit(character);
         driver.edit(character, request);
+
     }
 
-    private void edit(Integer characterId) {
+    private void refreshCharacter() {
         requestFactory.characterRequest().get(characterId).fire(new Receiver<CharacterProxy>() {
             @Override
             public void onSuccess(CharacterProxy character) {
@@ -81,13 +89,13 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
                     builder.append("\n");
                 }
                 view.showErrorMessage(builder.toString());
-                edit(character.getId());
+                refreshCharacter();
             }
 
             @Override
             public void onSuccess(Void response) {
                 view.hideErrorMessage();
-                edit(character.getId());
+                refreshCharacter();
             }
 
             @Override
@@ -110,6 +118,11 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     @Override
     public void start(AcceptsOneWidget panel) {
         panel.setWidget(view);
+    }
+
+    @Override
+    public void onCharacterEdit(CharacterEditEvent event) {
+        save();
     }
 
     interface Driver extends RequestFactoryEditorDriver<CharacterProxy, CharacterBasicsEditor> {
