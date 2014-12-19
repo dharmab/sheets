@@ -1,5 +1,7 @@
 package com.dharmab.sheets.client.presenters;
 
+import com.dharmab.sheets.client.events.CharacterDeletionEvent;
+import com.dharmab.sheets.client.events.CharacterDeletionEventHandler;
 import com.dharmab.sheets.client.events.CharacterSelectionEvent;
 import com.dharmab.sheets.client.events.CharacterSelectionEventHandler;
 import com.dharmab.sheets.client.places.CharacterPlace;
@@ -16,7 +18,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 
 import java.util.List;
 
-public class WelcomeActivity extends AppActivity implements WelcomePresenter, CharacterSelectionEventHandler {
+public class WelcomeActivity extends AppActivity implements WelcomePresenter, CharacterSelectionEventHandler, CharacterDeletionEventHandler {
     private AppRequestFactory requestFactory;
     private WelcomeView view;
     private PlaceController placeController;
@@ -32,6 +34,7 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
         this.view = view;
         this.placeController = placeController;
         eventBus.addHandler(CharacterSelectionEvent.TYPE, this);
+        eventBus.addHandler(CharacterDeletionEvent.TYPE, this);
         this.driver = driver;
         driver.initialize(eventBus, requestFactory, view.asEditor());
         view.setPresenter(this);
@@ -68,6 +71,16 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
     @Override
     public void onCharacterSelection(CharacterSelectionEvent event) {
         placeController.goTo(new CharacterPlace(String.valueOf(event.getId())));
+    }
+
+    @Override
+    public void onCharacterDeletion(CharacterDeletionEvent event) {
+        requestFactory.characterRequest().delete(event.getId()).fire(new Receiver<Void>() {
+            @Override
+            public void onSuccess(Void response) {
+                refreshCharacterList();
+            }
+        });
     }
 
     interface Driver extends RequestFactoryEditorDriver<List<CharacterProxy>, CharacterListView> {

@@ -22,6 +22,13 @@ public interface DatabaseAccessor {
     public void delete(Character character);
 
     /**
+     * Delete the record matching the given character ID from the database.
+     *
+     * @param id ID of character to delete.
+     */
+    public void delete(Integer id);
+
+    /**
      * Retrieve the record matching the given ID from the database.
      *
      * @param id ID of character to retrieve.

@@ -34,6 +34,10 @@ public class CharacterService {
         database.delete(character);
     }
 
+    public void delete(Integer id) {
+        database.delete(id);
+    }
+
     public List<Character> getAll() {
         return database.getAll();
     }

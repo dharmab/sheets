@@ -21,6 +21,8 @@ public interface AppRequestFactory extends RequestFactory {
 
         Request<Void> delete(CharacterProxy character);
 
+        Request<Void> delete(Integer id);
+
         Request<List<CharacterProxy>> getAll();
     }
 }

@@ -7,29 +7,29 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class DatabaseAccessorImpl implements DatabaseAccessor {
     private SessionFactory sessionFactory;
-    private Logger logger;
 
     @Inject
-    public DatabaseAccessorImpl(SessionFactory sessionFactory, Logger logger) {
+    public DatabaseAccessorImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.logger = logger;
     }
 
     @Override
     public void persist(Character character) {
-        logger.log(Level.FINE, "persisting character");
         getCurrentSession().persist(character);
     }
 
     @Override
     public void delete(Character character) {
         getCurrentSession().delete(character);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        getCurrentSession().createQuery("delete from Character where id = :id").setInteger("id", id).executeUpdate();
     }
 
     @Override
