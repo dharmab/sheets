@@ -112,7 +112,7 @@ public class CharacterTest {
     public void testStrengthModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setStrength(score);
-            assertEquals((int) abilityScoreModifierLookup.get(score), character.getStrengthModifier());
+            assertEquals(abilityScoreModifierLookup.get(score), character.getStrengthModifier());
             assertFalse(hasConstraintViolations(character));
         }
     }
@@ -121,7 +121,7 @@ public class CharacterTest {
     public void testDexterityModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setDexterity(score);
-            assertEquals((int) abilityScoreModifierLookup.get(score), character.getDexterityModifier());
+            assertEquals(abilityScoreModifierLookup.get(score), character.getDexterityModifier());
             assertFalse(hasConstraintViolations(character));
         }
     }
@@ -130,7 +130,7 @@ public class CharacterTest {
     public void testConstitutionModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setConstitution(score);
-            assertEquals((int) abilityScoreModifierLookup.get(score), character.getConstitutionModifier());
+            assertEquals(abilityScoreModifierLookup.get(score), character.getConstitutionModifier());
             assertFalse(hasConstraintViolations(character));
         }
     }
@@ -139,7 +139,7 @@ public class CharacterTest {
     public void testIntelligenceModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setIntelligence(score);
-            assertEquals((int) abilityScoreModifierLookup.get(score), character.getIntelligenceModifier());
+            assertEquals(abilityScoreModifierLookup.get(score), character.getIntelligenceModifier());
             assertFalse(hasConstraintViolations(character));
         }
     }
@@ -148,7 +148,7 @@ public class CharacterTest {
     public void testWisdomModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setWisdom(score);
-            assertEquals((int) abilityScoreModifierLookup.get(score), character.getWisdomModifier());
+            assertEquals(abilityScoreModifierLookup.get(score), character.getWisdomModifier());
             assertFalse(hasConstraintViolations(character));
         }
     }
@@ -157,7 +157,7 @@ public class CharacterTest {
     public void testCharismaModifierValues() {
         for (int score = 1; score <= 30; score++) {
             character.setCharisma(score);
-            assertEquals((int) abilityScoreModifierLookup.get(score), character.getCharismaModifier());
+            assertEquals(abilityScoreModifierLookup.get(score), character.getCharismaModifier());
             assertFalse(hasConstraintViolations(character));
         }
     }
@@ -172,7 +172,7 @@ public class CharacterTest {
     public void testLevelValues() {
         for (int level = 1; level <= 20; level++) {
             character.setLevel(level);
-            assertEquals(character.getLevel(), level);
+            assertEquals((int) character.getLevel(), level);
             assertFalse(hasConstraintViolations(character));
         }
     }
@@ -186,7 +186,7 @@ public class CharacterTest {
     @Test
     public void testZeroExperiencePoints() {
         character.setExperiencePoints(0);
-        assertEquals(character.getExperiencePoints(), 0);
+        assertEquals((int) character.getExperiencePoints(), 0);
         assertFalse(hasConstraintViolations(character));
 
     }
@@ -194,7 +194,7 @@ public class CharacterTest {
     @Test
     public void testPositiveExperiencePoints() throws Exception {
         character.setExperiencePoints(1);
-        assertEquals(character.getExperiencePoints(), 1);
+        assertEquals((int) character.getExperiencePoints(), 1);
         assertFalse(hasConstraintViolations(character));
 
     }
@@ -208,14 +208,14 @@ public class CharacterTest {
     @Test
     public void testZeroArmorClass() throws Exception {
         character.setArmorClass(0);
-        assertEquals(character.getArmorClass(), 0);
+        assertEquals((int) character.getArmorClass(), 0);
         assertFalse(hasConstraintViolations(character));
     }
 
     @Test
     public void testPositiveArmorClass() throws Exception {
         character.setArmorClass(1);
-        assertEquals(character.getArmorClass(), 1);
+        assertEquals((int) character.getArmorClass(), 1);
         assertFalse(hasConstraintViolations(character));
     }
 
@@ -223,7 +223,7 @@ public class CharacterTest {
     public void testInitiativeValues() {
         for (int dexterity = 1; dexterity <= 30; dexterity++) {
             character.setDexterity(dexterity);
-            assertEquals(character.getInitiative(), (int) abilityScoreModifierLookup.get(dexterity));
+            assertEquals(character.getInitiative(), abilityScoreModifierLookup.get(dexterity));
         }
     }
 

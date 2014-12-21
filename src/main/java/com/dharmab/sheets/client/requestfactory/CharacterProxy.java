@@ -19,9 +19,9 @@ public interface CharacterProxy extends EntityProxy {
 
     void setName(String name);
 
-    int getLevel();
+    Integer getLevel();
 
-    void setLevel(int level);
+    void setLevel(Integer level);
 
     String getBackground();
 
@@ -31,53 +31,53 @@ public interface CharacterProxy extends EntityProxy {
 
     void setRace(String race);
 
-    int getExperiencePoints();
+    Integer getExperiencePoints();
 
-    void setExperiencePoints(int xp);
+    void setExperiencePoints(Integer xp);
 
-    int getStrength();
+    Integer getStrength();
 
-    void setStrength(int score);
+    void setStrength(Integer score);
 
-    int getDexterity();
+    Integer getDexterity();
 
-    void setDexterity(int score);
+    void setDexterity(Integer score);
 
-    int getConstitution();
+    Integer getConstitution();
 
-    void setConstitution(int score);
+    void setConstitution(Integer score);
 
-    int getIntelligence();
+    Integer getIntelligence();
 
-    void setIntelligence(int score);
+    void setIntelligence(Integer score);
 
-    int getWisdom();
+    Integer getWisdom();
 
-    void setWisdom(int score);
+    void setWisdom(Integer score);
 
-    int getCharisma();
+    Integer getCharisma();
 
-    void setCharisma(int score);
+    void setCharisma(Integer score);
 
-    int getArmorClass();
+    Integer getArmorClass();
 
-    void setArmorClass(int ac);
+    void setArmorClass(Integer ac);
 
-    int getInitiative();
+    Integer getInitiative();
 
-    int getSpeed();
+    Integer getSpeed();
 
-    void setSpeed(int speed);
+    void setSpeed(Integer speed);
 
-    int getMaximumHitPoints();
+    Integer getMaximumHitPoints();
 
-    void setMaximumHitPoints(int hp);
+    void setMaximumHitPoints(Integer hp);
 
-    int getCurrentHitPoints();
+    Integer getCurrentHitPoints();
 
-    void setCurrentHitPoints(int hp);
+    void setCurrentHitPoints(Integer hp);
 
-    int getTemporaryHitPoints();
+    Integer getTemporaryHitPoints();
 
-    void setTemporaryHitPoints(int hp);
+    void setTemporaryHitPoints(Integer hp);
 }
