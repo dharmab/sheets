@@ -51,11 +51,10 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
 
         driver.initialize(requestFactory, view.asEditor());
         eventBus.addHandler(CharacterEditEvent.TYPE, this);
-
-        refreshCharacter();
-
         view.setPresenter(this);
         view.hideErrorMessage();
+
+        refreshCharacter();
     }
 
     private void edit(CharacterProxy character) {
