@@ -11,14 +11,20 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class CharacterBasicsEditor extends Composite implements Editor<CharacterProxy> {
     private static CharacterBasicsEditorUiBinder ourUiBinder = GWT.create(CharacterBasicsEditorUiBinder.class);
     private final EventBus eventBus;
+    private final List<HasValue<Integer>> nonNullableIntegerFields;
     @UiField
     TextBox name;
     @UiField
@@ -44,6 +50,13 @@ public class CharacterBasicsEditor extends Composite implements Editor<Character
         initWidget(ourUiBinder.createAndBindUi(this));
         level.addValueChangeHandler(integerValueChangeHandler);
         experiencePoints.addValueChangeHandler(integerValueChangeHandler);
+        nonNullableIntegerFields = getNonNullableIntegerFields();
+    }
+
+    private List<HasValue<Integer>> getNonNullableIntegerFields() {
+        List<HasValue<Integer>> list = new ArrayList<>();
+        list.addAll(Arrays.asList(level, experiencePoints));
+        return list;
     }
 
     @UiHandler(value = {"name", "characterClass", "background", "race"})
@@ -53,6 +66,16 @@ public class CharacterBasicsEditor extends Composite implements Editor<Character
 
     @UiHandler(value = {"level", "experiencePoints"})
     void onIntegerValueChange(@SuppressWarnings("UnusedParameters") ValueChangeEvent<Integer> event) {
+        /*
+         If an Integer annotated @NotNull in the backing model is null here, an NPE will throw under certain circumstances
+         (e.g. user enters text instead of an integer). The correct behavior should be to indicate the invalid input and
+         not fire any events until the input is corrected.
+          */
+        for (HasValue<Integer> editor : nonNullableIntegerFields) {
+            if (editor.getValue() == null) {
+                return;
+            }
+        }
         fireCharacterEditEvent();
     }
 

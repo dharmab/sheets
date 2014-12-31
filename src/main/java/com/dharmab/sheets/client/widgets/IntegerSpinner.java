@@ -10,15 +10,12 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.IntegerBox;
+import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
 
-public class IntegerSpinner extends Composite implements LeafValueEditor<Integer>, HasValueChangeHandlers<Integer> {
+public class IntegerSpinner extends Composite implements LeafValueEditor<Integer>, HasValue<Integer>, HasValueChangeHandlers<Integer> {
     private static IntegerSpinnerUiBinder ourUiBinder = GWT.create(IntegerSpinnerUiBinder.class);
 
     @Inject
@@ -46,8 +43,12 @@ public class IntegerSpinner extends Composite implements LeafValueEditor<Integer
 
     @Override
     public void setValue(Integer value) {
-        field.setValue(value, true);
-        setInputValidIndicator(isFieldValueValid());
+        field.setValue(value, false);
+    }
+
+    @Override
+    public void setValue(Integer value, boolean fireEvents) {
+        field.setValue(value, fireEvents);
     }
 
     @UiHandler("increment")
@@ -66,7 +67,7 @@ public class IntegerSpinner extends Composite implements LeafValueEditor<Integer
 
     private void addToValue(int addend) {
         if (isFieldValueValid()) {
-            setValue(field.getValue() + addend);
+            setValue(field.getValue() + addend, true);
         }
     }
 

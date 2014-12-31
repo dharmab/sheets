@@ -49,12 +49,10 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
             goToCharacterNotFoundPlace();
         }
 
-        driver.initialize(requestFactory, view.asEditor());
-        eventBus.addHandler(CharacterEditEvent.TYPE, this);
         view.setPresenter(this);
         view.hideErrorMessage();
 
-        refreshCharacter();
+        driver.initialize(eventBus, requestFactory, view.asEditor());
     }
 
     private void edit(CharacterProxy character) {
@@ -62,7 +60,6 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         AppRequestFactory.CharacterRequest request = requestFactory.characterRequest();
         request.edit(character);
         driver.edit(character, request);
-
     }
 
     private void refreshCharacter() {
@@ -84,8 +81,11 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
             public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
                 StringBuilder builder = new StringBuilder();
                 for (ConstraintViolation<?> violation : violations) {
-                    builder.append(violation.getMessage());
-                    builder.append("\n");
+                    builder
+                            .append(violation.getPropertyPath())
+                            .append(" ")
+                            .append(violation.getMessage())
+                            .append("\n");
                 }
                 view.showErrorMessage(builder.toString());
                 refreshCharacter();
@@ -117,6 +117,8 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     @Override
     public void start(AcceptsOneWidget panel) {
         panel.setWidget(view);
+        refreshCharacter();
+        eventBus.addHandler(CharacterEditEvent.TYPE, this);
     }
 
     @Override
