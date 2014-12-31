@@ -12,7 +12,7 @@ import com.dharmab.sheets.client.views.CharacterView;
 import com.dharmab.sheets.client.views.CharacterViewImpl;
 import com.dharmab.sheets.client.views.WelcomeView;
 import com.dharmab.sheets.client.views.WelcomeViewImpl;
-import com.dharmab.sheets.client.widgets.CharacterBasicsEditor;
+import com.dharmab.sheets.client.widgets.CharacterEditor;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
@@ -75,7 +75,7 @@ public class SheetsGinModule extends AbstractGinModule {
     }
 
     @Provides
-    CharacterBasicsEditor provideCharacterEditor(EventBus eventBus) {
-        return new CharacterBasicsEditor(eventBus);
+    CharacterEditor provideCharacterEditor(EventBus eventBus) {
+        return new CharacterEditor(eventBus);
     }
 }

@@ -1,0 +1,54 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:app='urn:import:com.dharmab.sheets.client.widgets'>
+    <g:HTMLPanel>
+        <g:VerticalPanel>
+            <g:FlowPanel>
+                <g:Label text="Character Name"/>
+                <g:TextBox ui:field="name"/>
+                <g:Label text="Level"/>
+                <app:IntegerSpinner ui:field="level"/>
+                <g:Label text="Class"/>
+                <g:TextBox ui:field="characterClass"/>
+                <g:Label text="Background"/>
+                <g:TextBox ui:field="background"/>
+                <g:Label text="Race"/>
+                <g:TextBox ui:field="race"/>
+                <g:Label text="Experience Points"/>
+                <app:IntegerSpinner ui:field="experiencePoints"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Strength"/>
+                    <app:IntegerSpinner ui:field="strength"/>
+                    <g:NumberLabel ui:field="strengthModifier"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Dexterity"/>
+                    <app:IntegerSpinner ui:field="dexterity"/>
+                    <g:NumberLabel ui:field="dexterityModifier"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Constitution"/>
+                    <app:IntegerSpinner ui:field="constitution"/>
+                    <g:NumberLabel ui:field="constitutionModifier"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Intelligence"/>
+                    <app:IntegerSpinner ui:field="intelligence"/>
+                    <g:NumberLabel ui:field="intelligenceModifier"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Wisdom"/>
+                    <app:IntegerSpinner ui:field="wisdom"/>
+                    <g:NumberLabel ui:field="wisdomModifier"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Charisma"/>
+                    <app:IntegerSpinner ui:field="charisma"/>
+                    <g:NumberLabel ui:field="charismaModifier"/>
+                </g:HorizontalPanel>
+            </g:FlowPanel>
+        </g:VerticalPanel>
+    </g:HTMLPanel>
+</ui:UiBinder>

@@ -5,6 +5,8 @@ import com.dharmab.sheets.server.character.CharacterLocator;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
+// Methods that appear unused are used by Editor framework at runtime
+@SuppressWarnings("UnusedDeclaration")
 @ProxyFor(value = Character.class, locator = CharacterLocator.class)
 public interface CharacterProxy extends EntityProxy {
     Integer getId();
@@ -39,25 +41,37 @@ public interface CharacterProxy extends EntityProxy {
 
     void setStrength(Integer score);
 
+    Integer getStrengthModifier();
+
     Integer getDexterity();
 
     void setDexterity(Integer score);
+
+    Integer getDexterityModifier();
 
     Integer getConstitution();
 
     void setConstitution(Integer score);
 
+    Integer getConstitutionModifier();
+
     Integer getIntelligence();
 
     void setIntelligence(Integer score);
+
+    Integer getIntelligenceModifier();
 
     Integer getWisdom();
 
     void setWisdom(Integer score);
 
+    Integer getWisdomModifier();
+
     Integer getCharisma();
 
     void setCharisma(Integer score);
+
+    Integer getCharismaModifier();
 
     Integer getArmorClass();
 

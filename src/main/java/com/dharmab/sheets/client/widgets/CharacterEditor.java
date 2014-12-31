@@ -9,10 +9,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
@@ -21,8 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class CharacterBasicsEditor extends Composite implements Editor<CharacterProxy> {
-    private static CharacterBasicsEditorUiBinder ourUiBinder = GWT.create(CharacterBasicsEditorUiBinder.class);
+public class CharacterEditor extends Composite implements Editor<CharacterProxy> {
+    private static CharacterEditorUiBinder ourUiBinder = GWT.create(CharacterEditorUiBinder.class);
     private final EventBus eventBus;
     /**
      * List of integer fields that are annotated as @NotNull in the model, used in a workaround for NPEs
@@ -40,6 +37,31 @@ public class CharacterBasicsEditor extends Composite implements Editor<Character
     TextBox race;
     @UiField
     IntegerSpinner experiencePoints;
+    @UiField
+    IntegerSpinner strength;
+    @UiField
+    NumberLabel<Integer> strengthModifier;
+    @UiField
+    IntegerSpinner dexterity;
+    @UiField
+    NumberLabel<Integer> dexterityModifier;
+    @UiField
+    IntegerSpinner constitution;
+    @UiField
+    NumberLabel<Integer> constitutionModifier;
+    @UiField
+    IntegerSpinner intelligence;
+    @UiField
+    NumberLabel<Integer> intelligenceModifier;
+    @UiField
+    IntegerSpinner wisdom;
+    @UiField
+    NumberLabel<Integer> wisdomModifier;
+    @UiField
+    IntegerSpinner charisma;
+    @UiField
+    NumberLabel<Integer> charismaModifier;
+
     ValueChangeHandler<Integer> integerValueChangeHandler = new ValueChangeHandler<Integer>() {
         @Override
         public void onValueChange(ValueChangeEvent<Integer> event) {
@@ -48,7 +70,7 @@ public class CharacterBasicsEditor extends Composite implements Editor<Character
     };
 
     @Inject
-    public CharacterBasicsEditor(EventBus eventBus) {
+    public CharacterEditor(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
         level.addValueChangeHandler(integerValueChangeHandler);
@@ -67,7 +89,16 @@ public class CharacterBasicsEditor extends Composite implements Editor<Character
         fireCharacterEditEvent();
     }
 
-    @UiHandler(value = {"level", "experiencePoints"})
+    @UiHandler(value = {
+            "level",
+            "experiencePoints",
+            "strength",
+            "dexterity",
+            "constitution",
+            "intelligence",
+            "wisdom",
+            "charisma"
+    })
     void onIntegerValueChange(@SuppressWarnings("UnusedParameters") ValueChangeEvent<Integer> event) {
         /*
          If an Integer annotated @NotNull in the backing model is null here, an NPE will throw under certain circumstances
@@ -86,6 +117,6 @@ public class CharacterBasicsEditor extends Composite implements Editor<Character
         eventBus.fireEvent(new CharacterEditEvent());
     }
 
-    interface CharacterBasicsEditorUiBinder extends UiBinder<HTMLPanel, CharacterBasicsEditor> {
+    interface CharacterEditorUiBinder extends UiBinder<HTMLPanel, CharacterEditor> {
     }
 }

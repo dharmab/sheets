@@ -7,7 +7,7 @@ import com.dharmab.sheets.client.places.WelcomePlace;
 import com.dharmab.sheets.client.requestfactory.AppRequestFactory;
 import com.dharmab.sheets.client.requestfactory.CharacterProxy;
 import com.dharmab.sheets.client.views.CharacterView;
-import com.dharmab.sheets.client.widgets.CharacterBasicsEditor;
+import com.dharmab.sheets.client.widgets.CharacterEditor;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
@@ -126,7 +126,7 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         save();
     }
 
-    interface Driver extends RequestFactoryEditorDriver<CharacterProxy, CharacterBasicsEditor> {
+    interface Driver extends RequestFactoryEditorDriver<CharacterProxy, CharacterEditor> {
 
     }
 }

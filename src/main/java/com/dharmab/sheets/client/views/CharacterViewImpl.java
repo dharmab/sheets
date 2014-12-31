@@ -1,7 +1,7 @@
 package com.dharmab.sheets.client.views;
 
 import com.dharmab.sheets.client.presenters.CharacterPresenter;
-import com.dharmab.sheets.client.widgets.CharacterBasicsEditor;
+import com.dharmab.sheets.client.widgets.CharacterEditor;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -15,10 +15,10 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
 
 
-public class CharacterViewImpl extends Composite implements CharacterView, IsEditor<CharacterBasicsEditor> {
+public class CharacterViewImpl extends Composite implements CharacterView, IsEditor<CharacterEditor> {
     private static CharacterViewUiBinder ourUiBinder = GWT.create(CharacterViewUiBinder.class);
     @UiField(provided = true)
-    CharacterBasicsEditor characterEditor;
+    CharacterEditor characterEditor;
     @UiField
     Button back;
     @UiField
@@ -27,13 +27,13 @@ public class CharacterViewImpl extends Composite implements CharacterView, IsEdi
     private CharacterPresenter presenter;
 
     @Inject
-    public CharacterViewImpl(CharacterBasicsEditor characterEditor) {
+    public CharacterViewImpl(CharacterEditor characterEditor) {
         this.characterEditor = characterEditor;
         initWidget(ourUiBinder.createAndBindUi(this));
     }
 
     @Override
-    public CharacterBasicsEditor asEditor() {
+    public CharacterEditor asEditor() {
         return characterEditor;
     }
 

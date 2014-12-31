@@ -3,7 +3,7 @@
              xmlns:sheets='urn:import:com.dharmab.sheets.client.widgets'>
     <g:HTMLPanel>
         <g:Button ui:field="back" text="Back"/>
-        <sheets:CharacterBasicsEditor ui:field="characterEditor"/>
+        <sheets:CharacterEditor ui:field="characterEditor"/>
         <g:Label ui:field="errorMessageLabel"/>
     </g:HTMLPanel>
 </ui:UiBinder>
