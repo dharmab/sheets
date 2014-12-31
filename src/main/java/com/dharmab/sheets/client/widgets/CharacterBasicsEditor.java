@@ -24,6 +24,9 @@ import java.util.List;
 public class CharacterBasicsEditor extends Composite implements Editor<CharacterProxy> {
     private static CharacterBasicsEditorUiBinder ourUiBinder = GWT.create(CharacterBasicsEditorUiBinder.class);
     private final EventBus eventBus;
+    /**
+     * List of integer fields that are annotated as @NotNull in the model, used in a workaround for NPEs
+     */
     private final List<HasValue<Integer>> nonNullableIntegerFields;
     @UiField
     TextBox name;
@@ -68,8 +71,8 @@ public class CharacterBasicsEditor extends Composite implements Editor<Character
     void onIntegerValueChange(@SuppressWarnings("UnusedParameters") ValueChangeEvent<Integer> event) {
         /*
          If an Integer annotated @NotNull in the backing model is null here, an NPE will throw under certain circumstances
-         (e.g. user enters text instead of an integer). The correct behavior should be to indicate the invalid input and
-         not fire any events until the input is corrected.
+         (e.g. user enters text instead of an integer, or during a page reload). The correct behavior should be to
+         indicate the invalid input to the user and not fire any events until the input is corrected.
           */
         for (HasValue<Integer> editor : nonNullableIntegerFields) {
             if (editor.getValue() == null) {
