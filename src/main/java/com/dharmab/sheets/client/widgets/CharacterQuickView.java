@@ -2,7 +2,7 @@ package com.dharmab.sheets.client.widgets;
 
 import com.dharmab.sheets.client.events.CharacterDeletionEvent;
 import com.dharmab.sheets.client.events.CharacterSelectionEvent;
-import com.dharmab.sheets.client.requestfactory.CharacterProxy;
+import com.dharmab.sheets.shared.Character.Character;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.web.bindery.event.shared.EventBus;
 
 
-public class CharacterQuickView extends Composite implements LeafValueEditor<CharacterProxy> {
+public class CharacterQuickView extends Composite implements LeafValueEditor<Character> {
     private static CharacterQuickViewUiBinder ourUiBinder = GWT.create(CharacterQuickViewUiBinder.class);
     @UiField
     Label name;
@@ -26,7 +26,7 @@ public class CharacterQuickView extends Composite implements LeafValueEditor<Cha
     Button delete;
 
     private EventBus eventBus;
-    private CharacterProxy character;
+    private Character character;
     private Integer id;
 
     public CharacterQuickView(EventBus eventBus) {
@@ -35,12 +35,12 @@ public class CharacterQuickView extends Composite implements LeafValueEditor<Cha
     }
 
     @Override
-    public CharacterProxy getValue() {
+    public Character getValue() {
         return character;
     }
 
     @Override
-    public void setValue(CharacterProxy character) {
+    public void setValue(Character character) {
         this.character = character;
         name.setText(character.getName());
         id = character.getId();

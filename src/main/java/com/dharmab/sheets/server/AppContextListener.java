@@ -1,6 +1,5 @@
 package com.dharmab.sheets.server;
 
-import com.dharmab.sheets.server.character.CharacterModule;
 import com.dharmab.sheets.server.database.DatabaseModule;
 import com.dharmab.sheets.server.database.DatabaseSessionFilter;
 import com.dharmab.sheets.server.requestfactory.InjectableRequestFactoryModule;
@@ -29,7 +28,6 @@ public class AppContextListener extends GuiceServletContextListener {
         try {
             final DataSource dataSource = (DataSource) new InitialContext().lookup("java:comp/env/jdbc/postgresql");
             injector = Guice.createInjector(
-                    new CharacterModule(),
                     new DatabaseModule(dataSource),
                     new ServletModule() {
                         @Override

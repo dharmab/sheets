@@ -1,6 +1,6 @@
 package com.dharmab.sheets.server.database;
 
-import com.dharmab.sheets.server.character.Character;
+import com.dharmab.sheets.shared.Character.Character;
 import com.google.common.base.Optional;
 
 import java.util.List;
@@ -36,5 +36,5 @@ public interface DatabaseAccessor {
      */
     public Optional<Character> getCharacter(Integer id);
 
-    List<Character> getAll();
+    List<Character> getAllCharacters();
 }

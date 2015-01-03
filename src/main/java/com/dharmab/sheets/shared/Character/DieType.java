@@ -1,4 +1,4 @@
-package com.dharmab.sheets.server.character;
+package com.dharmab.sheets.shared.Character;
 
 public enum DieType {
     D4,

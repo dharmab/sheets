@@ -18,6 +18,16 @@
         <listener-class>com.dharmab.sheets.server.AppContextListener</listener-class>
     </listener>
 
+    <servlet>
+        <servlet-name>com.dharmab.sheets.sheets CharacterService</servlet-name>
+        <servlet-class>com.dharmab.sheets.server.rpc.CharacterServiceImpl</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>com.dharmab.sheets.sheets CharacterService</servlet-name>
+        <url-pattern>/sheets/character</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>sheets.html</welcome-file>
     </welcome-file-list>

@@ -10,7 +10,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
         <property name="current_session_context_class">thread</property>
 
-        <mapping class="com.dharmab.sheets.server.character.Character"/>
+        <mapping class="com.dharmab.sheets.shared.Character.Character"/>
     </session-factory>
 
 </hibernate-configuration>

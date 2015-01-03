@@ -1,6 +1,6 @@
 package com.dharmab.sheets.client.widgets;
 
-import com.dharmab.sheets.client.requestfactory.CharacterProxy;
+import com.dharmab.sheets.shared.Character.Character;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.CompositeEditor;
 import com.google.gwt.editor.client.EditorDelegate;
@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CharacterListView extends Composite implements CompositeEditor<List<CharacterProxy>, CharacterProxy, CharacterQuickView> {
+public class CharacterListView extends Composite implements CompositeEditor<List<Character>, Character, CharacterQuickView> {
     private static CharacterListViewUiBinder ourUiBinder = GWT.create(CharacterListViewUiBinder.class);
-    EditorDelegate<List<CharacterProxy>> delegate;
+    EditorDelegate<List<Character>> delegate;
     @UiField
     Panel panel;
     private EventBus eventBus;
-    private CompositeEditor.EditorChain<CharacterProxy, CharacterQuickView> editorChain;
+    private CompositeEditor.EditorChain<Character, CharacterQuickView> editorChain;
     private List<CharacterQuickView> subViews = new ArrayList<>();
 
     public CharacterListView(EventBus eventBus) {
@@ -40,7 +40,7 @@ public class CharacterListView extends Composite implements CompositeEditor<List
     }
 
     @Override
-    public void setEditorChain(EditorChain<CharacterProxy, CharacterQuickView> chain) {
+    public void setEditorChain(EditorChain<Character, CharacterQuickView> chain) {
         editorChain = chain;
     }
 
@@ -55,7 +55,7 @@ public class CharacterListView extends Composite implements CompositeEditor<List
     }
 
     @Override
-    public void setValue(List<CharacterProxy> characters) {
+    public void setValue(List<Character> characters) {
         if (subViews == null) {
             subViews = new ArrayList<>();
         }
@@ -64,7 +64,7 @@ public class CharacterListView extends Composite implements CompositeEditor<List
         }
         subViews.clear();
         panel.clear();
-        for (CharacterProxy character : characters) {
+        for (Character character : characters) {
             CharacterQuickView subView = new CharacterQuickView(eventBus);
             panel.add(subView);
             editorChain.attach(character, subView);
@@ -72,7 +72,7 @@ public class CharacterListView extends Composite implements CompositeEditor<List
     }
 
     @Override
-    public void setDelegate(EditorDelegate<List<CharacterProxy>> delegate) {
+    public void setDelegate(EditorDelegate<List<Character>> delegate) {
         this.delegate = delegate;
     }
 

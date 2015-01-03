@@ -1,6 +1,6 @@
 package com.dharmab.sheets.server.database;
 
-import com.dharmab.sheets.server.character.Character;
+import com.dharmab.sheets.shared.Character.Character;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import org.hibernate.Session;
@@ -38,7 +38,7 @@ public class DatabaseAccessorImpl implements DatabaseAccessor {
     }
 
     @Override
-    public List<Character> getAll() {
+    public List<Character> getAllCharacters() {
         @SuppressWarnings("unchecked") List<Character> results = getCurrentSession().createQuery("from Character").list();
         return results;
     }

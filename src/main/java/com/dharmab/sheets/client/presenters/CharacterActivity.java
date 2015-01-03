@@ -4,28 +4,24 @@ import com.dharmab.sheets.client.events.CharacterEditEvent;
 import com.dharmab.sheets.client.events.CharacterEditEventHandler;
 import com.dharmab.sheets.client.places.CharacterPlace;
 import com.dharmab.sheets.client.places.WelcomePlace;
-import com.dharmab.sheets.client.requestfactory.AppRequestFactory;
-import com.dharmab.sheets.client.requestfactory.CharacterProxy;
+import com.dharmab.sheets.client.rpc.CharacterServiceAsync;
 import com.dharmab.sheets.client.views.CharacterView;
 import com.dharmab.sheets.client.widgets.CharacterEditor;
+import com.dharmab.sheets.shared.Character.Character;
+import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.place.shared.PlaceController;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
-import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
-
-import javax.validation.ConstraintViolation;
-import java.util.Set;
 
 public class CharacterActivity extends AppActivity implements CharacterPresenter, CharacterEditEventHandler {
 
-    private AppRequestFactory requestFactory;
     private CharacterView view;
     private Driver driver;
-    private CharacterProxy character;
+    private Character character;
+    private CharacterServiceAsync characterService;
     private PlaceController placeController;
     private EventBus eventBus;
     private Integer characterId;
@@ -33,15 +29,15 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     @Inject
     public CharacterActivity(@Assisted CharacterPlace place,
                              CharacterView view,
-                             AppRequestFactory requestFactory,
                              Driver driver,
                              EventBus eventBus,
-                             PlaceController placeController) {
+                             PlaceController placeController,
+                             CharacterServiceAsync characterService) {
         this.view = view;
-        this.requestFactory = requestFactory;
         this.driver = driver;
         this.placeController = placeController;
         this.eventBus = eventBus;
+        this.characterService = characterService;
 
         try {
             characterId = Integer.parseInt(place.getToken());
@@ -52,54 +48,45 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         view.setPresenter(this);
         view.hideErrorMessage();
 
-        driver.initialize(eventBus, requestFactory, view.asEditor());
+        driver.initialize(view.asEditor());
     }
 
-    private void edit(CharacterProxy character) {
+    private void edit(Character character) {
         this.character = character;
-        AppRequestFactory.CharacterRequest request = requestFactory.characterRequest();
-        request.edit(character);
-        driver.edit(character, request);
+        driver.edit(character);
     }
 
     private void refreshCharacter() {
-        requestFactory.characterRequest().get(characterId).fire(new Receiver<CharacterProxy>() {
+        characterService.get(characterId, new AsyncCallback<Character>() {
             @Override
-            public void onSuccess(CharacterProxy character) {
-                if (character == null) {
+            public void onFailure(Throwable caught) {
+                // todo show error message
+            }
+
+            @Override
+            public void onSuccess(Character response) {
+                if (response == null) {
                     goToCharacterNotFoundPlace();
                 }
-                edit(character);
+                edit(response);
             }
         });
     }
 
     @Override
     public void save() {
-        ((AppRequestFactory.CharacterRequest) driver.flush()).persist(character).fire(new Receiver<Void>() {
+        // todo client-side validation
+        driver.flush();
+        characterService.persist(character, new AsyncCallback<Void>() {
             @Override
-            public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
-                StringBuilder builder = new StringBuilder();
-                for (ConstraintViolation<?> violation : violations) {
-                    builder
-                            .append(violation.getPropertyPath())
-                            .append(" ")
-                            .append(violation.getMessage())
-                            .append("\n");
-                }
-                view.showErrorMessage(builder.toString());
-                refreshCharacter();
+            public void onFailure(Throwable caught) {
+                view.showErrorMessage("An error occurred");
             }
 
             @Override
-            public void onSuccess(Void response) {
+            public void onSuccess(Void result) {
                 view.hideErrorMessage();
                 refreshCharacter();
-            }
-
-            @Override
-            public void onFailure(ServerFailure error) {
-                view.showErrorMessage("An error occurred: " + error.getMessage());
             }
         });
     }
@@ -126,7 +113,7 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         save();
     }
 
-    interface Driver extends RequestFactoryEditorDriver<CharacterProxy, CharacterEditor> {
+    interface Driver extends SimpleBeanEditorDriver<Character, CharacterEditor> {
 
     }
 }
