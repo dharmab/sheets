@@ -20,10 +20,13 @@ import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.inject.client.assistedinject.GinFactoryModuleBuilder;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.validation.client.impl.Validation;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
+
+import javax.validation.Validator;
 
 public class SheetsGinModule extends AbstractGinModule {
 
@@ -77,5 +80,10 @@ public class SheetsGinModule extends AbstractGinModule {
     @Provides
     CharacterEditor provideCharacterEditor(EventBus eventBus) {
         return new CharacterEditor(eventBus);
+    }
+
+    @Provides
+    Validator provideValidator() {
+        return Validation.buildDefaultValidatorFactory().getValidator();
     }
 }

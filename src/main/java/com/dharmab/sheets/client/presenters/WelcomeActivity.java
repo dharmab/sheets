@@ -62,14 +62,14 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
 
     @Override
     public void createCharacter() {
-        characterService.persist(new Character(), new AsyncCallback<Void>() {
+        characterService.merge(new Character(), new AsyncCallback<Boolean>() {
             @Override
             public void onFailure(Throwable caught) {
                 // todo show error
             }
 
             @Override
-            public void onSuccess(Void result) {
+            public void onSuccess(Boolean result) {
                 refreshCharacterList();
             }
         });

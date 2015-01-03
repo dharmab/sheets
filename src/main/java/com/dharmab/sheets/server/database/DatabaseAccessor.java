@@ -8,11 +8,19 @@ import java.util.List;
 public interface DatabaseAccessor {
     /**
      * If the given character exists in the database, update the record matching the given character.
-     * Otherwise, save the given character as a new record.
+     * Otherwise, save the given character as a new record. This method should be used in RequestFactory services.
      *
      * @param character Character to persist, identified by ID.
      */
     public void persist(Character character);
+
+    /**
+     * If the given character exists in the database, update the record matching the given character.
+     * Otherwise, save the given character as a new record. This method should be used in GWT-RPC services.
+     *
+     * @param character Character to merge, identified by ID.
+     */
+    void merge(Character character);
 
     /**
      * Delete the record matching the given character from the database.

@@ -4,6 +4,7 @@ import com.dharmab.sheets.server.database.DatabaseModule;
 import com.dharmab.sheets.server.database.DatabaseSessionFilter;
 import com.dharmab.sheets.server.requestfactory.InjectableRequestFactoryModule;
 import com.dharmab.sheets.server.requestfactory.InjectableRequestFactoryServlet;
+import com.dharmab.sheets.server.rpc.CharacterServiceImpl;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
@@ -37,6 +38,8 @@ public class AppContextListener extends GuiceServletContextListener {
                             // RequestFactory servlet mapping
                             install(new InjectableRequestFactoryModule());
                             serve("/gwtRequest").with(InjectableRequestFactoryServlet.class);
+                            // RPC servlet mappings
+                            serve("/sheets/character").with(CharacterServiceImpl.class);
                         }
                     });
         } catch (NamingException e) {

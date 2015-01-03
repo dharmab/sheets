@@ -5,20 +5,40 @@ import com.dharmab.sheets.server.database.DatabaseAccessor;
 import com.dharmab.sheets.shared.Character.Character;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import org.hibernate.HibernateException;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.util.List;
+import java.util.Set;
 
+// Services are registered via Guice injection
+@SuppressWarnings("GwtServiceNotRegistered")
+@Singleton
 public class CharacterServiceImpl extends RemoteServiceServlet implements CharacterService {
     private DatabaseAccessor database;
+    private Validator validator;
 
     @Inject
-    public void setDatabase(DatabaseAccessor database) {
+    public CharacterServiceImpl(DatabaseAccessor database, Validator validator) {
         this.database = database;
+        this.validator = validator;
     }
 
     @Override
-    public void persist(com.dharmab.sheets.shared.Character.Character character) {
-        database.persist(character);
+    public Boolean merge(com.dharmab.sheets.shared.Character.Character character) {
+        Set<ConstraintViolation<Character>> violations = validator.validate(character);
+        if (!violations.isEmpty()) {
+            return false;
+        }
+
+        try {
+            database.merge(character);
+            return true;
+        } catch (HibernateException e) {
+            return false;
+        }
     }
 
     @Override

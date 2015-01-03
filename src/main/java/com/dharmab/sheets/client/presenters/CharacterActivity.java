@@ -16,6 +16,11 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.web.bindery.event.shared.EventBus;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.Set;
+
+
 public class CharacterActivity extends AppActivity implements CharacterPresenter, CharacterEditEventHandler {
 
     private CharacterView view;
@@ -25,6 +30,7 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     private PlaceController placeController;
     private EventBus eventBus;
     private Integer characterId;
+    private Validator validator;
 
     @Inject
     public CharacterActivity(@Assisted CharacterPlace place,
@@ -32,12 +38,14 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
                              Driver driver,
                              EventBus eventBus,
                              PlaceController placeController,
-                             CharacterServiceAsync characterService) {
+                             CharacterServiceAsync characterService,
+                             Validator validator) {
         this.view = view;
         this.driver = driver;
         this.placeController = placeController;
         this.eventBus = eventBus;
         this.characterService = characterService;
+        this.validator = validator;
 
         try {
             characterId = Integer.parseInt(place.getToken());
@@ -77,18 +85,32 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     public void save() {
         // todo client-side validation
         driver.flush();
-        characterService.persist(character, new AsyncCallback<Void>() {
-            @Override
-            public void onFailure(Throwable caught) {
-                view.showErrorMessage("An error occurred");
-            }
+        Set<ConstraintViolation<Character>> violations = validator.validate(character);
+        if (violations.isEmpty()) {
+            characterService.merge(character, new AsyncCallback<Boolean>() {
+                @Override
+                public void onFailure(Throwable caught) {
+                    view.showErrorMessage("An error occurred");
+                }
 
-            @Override
-            public void onSuccess(Void result) {
-                view.hideErrorMessage();
-                refreshCharacter();
+                @Override
+                public void onSuccess(Boolean result) {
+                    view.hideErrorMessage();
+                    refreshCharacter();
+                }
+            });
+        } else {
+            StringBuilder builder = new StringBuilder();
+            for (ConstraintViolation<Character> violation : violations) {
+                builder
+                        .append(violation.getPropertyPath())
+                        .append(" ")
+                        .append(violation.getMessage())
+                        .append("\n");
             }
-        });
+            view.showErrorMessage(builder.toString());
+            refreshCharacter();
+        }
     }
 
     @Override

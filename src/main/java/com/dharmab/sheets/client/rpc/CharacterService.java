@@ -8,7 +8,7 @@ import java.util.List;
 
 @RemoteServiceRelativePath("character")
 public interface CharacterService extends RemoteService {
-    void persist(Character character);
+    Boolean merge(Character character);
 
     void delete(Character character);
 

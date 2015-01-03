@@ -14,6 +14,11 @@
     <inherits name="com.google.gwt.activity.Activity"/>
     <inherits name="com.google.gwt.logging.Logging"/>
     <inherits name="com.google.gwt.editor.Editor"/>
+    <inherits name="org.hibernate.validator.HibernateValidator"/>
+
+    <replace-with class="com.dharmab.sheets.client.validation.AppValidatorFactory">
+        <when-type-is class="javax.validation.ValidatorFactory"/>
+    </replace-with>
 
     <collapse-all-properties/>
 </module>

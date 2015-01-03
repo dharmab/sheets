@@ -23,6 +23,11 @@ public class DatabaseAccessorImpl implements DatabaseAccessor {
     }
 
     @Override
+    public void merge(Character character) {
+        getCurrentSession().merge(character);
+    }
+
+    @Override
     public void delete(Character character) {
         getCurrentSession().delete(character);
     }
