@@ -68,7 +68,7 @@
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
                     <g:Label text="Initiative"/>
-                    <app:IntegerSpinner ui:field="initiative"/>
+                    <g:NumberLabel ui:field="initiative"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
                     <g:Label text="Speed"/>

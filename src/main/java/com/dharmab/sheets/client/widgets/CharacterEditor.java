@@ -59,7 +59,7 @@ public class CharacterEditor extends Composite implements Editor<com.dharmab.she
     @UiField
     IntegerSpinner armorClass;
     @UiField
-    IntegerSpinner initiative;
+    NumberLabel<Integer> initiative;
     @UiField
     IntegerSpinner speed;
     @UiField
@@ -102,6 +102,8 @@ public class CharacterEditor extends Composite implements Editor<com.dharmab.she
             "intelligence",
             "wisdom",
             "charisma",
+            "armorClass",
+            "speed",
             "maximumHitPoints",
             "currentHitPoints",
             "temporaryHitPoints",
@@ -112,12 +114,21 @@ public class CharacterEditor extends Composite implements Editor<com.dharmab.she
             "maximumHitDice",
             "currentHitDice"
     })
-    void onIntegerValueChange(@SuppressWarnings("UnusedParameters") ValueChangeEvent<Integer> event) {
+    void onIntegerValueChange(ValueChangeEvent<Integer> event) {
         /*
          If an Integer annotated @NotNull in the backing model is null here, an NPE will throw under certain circumstances
          (e.g. user enters text instead of an integer, or during a page reload). The correct behavior should be to
          indicate the invalid input to the user and not fire any events until the input is corrected.
           */
+        if (event.getValue() != null) {
+            fireCharacterEditEvent();
+        }
+    }
+
+    @UiHandler(value = {
+            "hasInspirationPoint"
+    })
+    void onBooleanValueChange(ValueChangeEvent<Boolean> event) {
         if (event.getValue() != null) {
             fireCharacterEditEvent();
         }
