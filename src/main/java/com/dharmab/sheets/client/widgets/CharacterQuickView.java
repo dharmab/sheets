@@ -2,7 +2,7 @@ package com.dharmab.sheets.client.widgets;
 
 import com.dharmab.sheets.client.events.CharacterDeletionEvent;
 import com.dharmab.sheets.client.events.CharacterSelectionEvent;
-import com.dharmab.sheets.shared.Character.Character;
+import com.dharmab.sheets.shared.character.Character;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.dom.client.ClickEvent;

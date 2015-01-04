@@ -1,4 +1,4 @@
-package com.dharmab.sheets.shared.Character;
+package com.dharmab.sheets.shared.character;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -35,7 +35,7 @@ public class Character implements IsSerializable {
     private Integer temporaryHitPoints;
     private Integer proficiency;
     private Boolean hasInspirationPoint;
-    private Integer maxHitDice;
+    private Integer maximumHitDice;
     private Integer currentHitDice;
     private DieType hitDie;
     private Integer deathSavingThrowSuccesses;
@@ -68,7 +68,7 @@ public class Character implements IsSerializable {
 
     public Character() {
         // Default values
-        name = "New Character";
+        name = "New character";
         characterClass = "None";
         background = "None";
         race = "Human";
@@ -86,6 +86,12 @@ public class Character implements IsSerializable {
         currentHitPoints = 10;
         temporaryHitPoints = 0;
         proficiency = 2;
+        maximumHitPoints = 10;
+        currentHitPoints = 10;
+        temporaryHitPoints = 0;
+        hasInspirationPoint = false;
+        maximumHitDice = 2;
+        currentHitDice = 2;
     }
 
     @Id
@@ -361,5 +367,35 @@ public class Character implements IsSerializable {
 
     public void setProficiency(Integer proficiency) {
         this.proficiency = proficiency;
+    }
+
+    @Column(name = "inspiration")
+    @NotNull
+    public Boolean getHasInspirationPoint() {
+        return hasInspirationPoint;
+    }
+
+    public void setHasInspirationPoint(Boolean hasInspirationPoint) {
+        this.hasInspirationPoint = hasInspirationPoint;
+    }
+
+    @Column(name = "maximum_hit_dice")
+    @NotNull
+    public Integer getMaximumHitDice() {
+        return maximumHitDice;
+    }
+
+    public void setMaximumHitDice(Integer maximumHitDice) {
+        this.maximumHitDice = maximumHitDice;
+    }
+
+    @Column(name = "current_hit_dice")
+    @NotNull
+    public Integer getCurrentHitDice() {
+        return currentHitDice;
+    }
+
+    public void setCurrentHitDice(Integer currentHitDice) {
+        this.currentHitDice = currentHitDice;
     }
 }

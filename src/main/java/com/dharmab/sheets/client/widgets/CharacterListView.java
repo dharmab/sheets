@@ -1,6 +1,6 @@
 package com.dharmab.sheets.client.widgets;
 
-import com.dharmab.sheets.shared.Character.Character;
+import com.dharmab.sheets.shared.character.Character;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.CompositeEditor;
 import com.google.gwt.editor.client.EditorDelegate;

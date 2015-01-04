@@ -4,7 +4,6 @@ import com.dharmab.sheets.client.events.CharacterEditEvent;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
-import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -12,18 +11,13 @@ import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-
-public class CharacterEditor extends Composite implements Editor<com.dharmab.sheets.shared.Character.Character> {
+public class CharacterEditor extends Composite implements Editor<com.dharmab.sheets.shared.character.Character> {
     private static CharacterEditorUiBinder ourUiBinder = GWT.create(CharacterEditorUiBinder.class);
     private final EventBus eventBus;
     /**
      * List of integer fields that are annotated as @NotNull in the model, used in a workaround for NPEs
      */
-    private final List<HasValue<Integer>> nonNullableIntegerFields;
     @UiField
     TextBox name;
     @UiField
@@ -60,30 +54,41 @@ public class CharacterEditor extends Composite implements Editor<com.dharmab.she
     IntegerSpinner charisma;
     @UiField
     NumberLabel<Integer> charismaModifier;
-
-    ValueChangeHandler<Integer> integerValueChangeHandler = new ValueChangeHandler<Integer>() {
-        @Override
-        public void onValueChange(ValueChangeEvent<Integer> event) {
-            fireCharacterEditEvent();
-        }
-    };
+    @UiField
+    NumberLabel<Integer> passiveWisdom;
+    @UiField
+    IntegerSpinner armorClass;
+    @UiField
+    IntegerSpinner initiative;
+    @UiField
+    IntegerSpinner speed;
+    @UiField
+    IntegerSpinner maximumHitPoints;
+    @UiField
+    IntegerSpinner currentHitPoints;
+    @UiField
+    IntegerSpinner temporaryHitPoints;
+    @UiField
+    IntegerSpinner proficiency;
+    @UiField
+    CheckBox hasInspirationPoint;
+    @UiField
+    IntegerSpinner maximumHitDice;
+    @UiField
+    IntegerSpinner currentHitDice;
 
     @Inject
     public CharacterEditor(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
-        level.addValueChangeHandler(integerValueChangeHandler);
-        experiencePoints.addValueChangeHandler(integerValueChangeHandler);
-        nonNullableIntegerFields = getNonNullableIntegerFields();
     }
 
-    private List<HasValue<Integer>> getNonNullableIntegerFields() {
-        List<HasValue<Integer>> list = new ArrayList<>();
-        list.addAll(Arrays.asList(level, experiencePoints));
-        return list;
-    }
-
-    @UiHandler(value = {"name", "characterClass", "background", "race"})
+    @UiHandler(value = {
+            "name",
+            "characterClass",
+            "background",
+            "race"
+    })
     void onStringValueChange(@SuppressWarnings("UnusedParameters") ValueChangeEvent<String> event) {
         fireCharacterEditEvent();
     }
@@ -96,7 +101,16 @@ public class CharacterEditor extends Composite implements Editor<com.dharmab.she
             "constitution",
             "intelligence",
             "wisdom",
-            "charisma"
+            "charisma",
+            "maximumHitPoints",
+            "currentHitPoints",
+            "temporaryHitPoints",
+            "maximumHitPoints",
+            "currentHitPoints",
+            "temporaryHitPoints",
+            "proficiency",
+            "maximumHitDice",
+            "currentHitDice"
     })
     void onIntegerValueChange(@SuppressWarnings("UnusedParameters") ValueChangeEvent<Integer> event) {
         /*
@@ -104,12 +118,9 @@ public class CharacterEditor extends Composite implements Editor<com.dharmab.she
          (e.g. user enters text instead of an integer, or during a page reload). The correct behavior should be to
          indicate the invalid input to the user and not fire any events until the input is corrected.
           */
-        for (HasValue<Integer> editor : nonNullableIntegerFields) {
-            if (editor.getValue() == null) {
-                return;
-            }
+        if (event.getValue() != null) {
+            fireCharacterEditEvent();
         }
-        fireCharacterEditEvent();
     }
 
     private void fireCharacterEditEvent() {

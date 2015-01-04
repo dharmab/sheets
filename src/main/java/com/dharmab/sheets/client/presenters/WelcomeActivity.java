@@ -8,7 +8,7 @@ import com.dharmab.sheets.client.places.CharacterPlace;
 import com.dharmab.sheets.client.rpc.CharacterServiceAsync;
 import com.dharmab.sheets.client.views.WelcomeView;
 import com.dharmab.sheets.client.widgets.CharacterListView;
-import com.dharmab.sheets.shared.Character.Character;
+import com.dharmab.sheets.shared.character.Character;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -47,7 +47,7 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
     }
 
     private void refreshCharacterList() {
-        characterService.getAll(new AsyncCallback<List<com.dharmab.sheets.shared.Character.Character>>() {
+        characterService.getAll(new AsyncCallback<List<com.dharmab.sheets.shared.character.Character>>() {
             @Override
             public void onFailure(Throwable caught) {
                 // todo show error message

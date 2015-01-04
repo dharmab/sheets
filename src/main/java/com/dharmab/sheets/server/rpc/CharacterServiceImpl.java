@@ -2,7 +2,7 @@ package com.dharmab.sheets.server.rpc;
 
 import com.dharmab.sheets.client.rpc.CharacterService;
 import com.dharmab.sheets.server.database.DatabaseAccessor;
-import com.dharmab.sheets.shared.Character.Character;
+import com.dharmab.sheets.shared.character.Character;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -27,7 +27,7 @@ public class CharacterServiceImpl extends RemoteServiceServlet implements Charac
     }
 
     @Override
-    public Boolean merge(com.dharmab.sheets.shared.Character.Character character) {
+    public Boolean merge(com.dharmab.sheets.shared.character.Character character) {
         Set<ConstraintViolation<Character>> violations = validator.validate(character);
         if (!violations.isEmpty()) {
             return false;

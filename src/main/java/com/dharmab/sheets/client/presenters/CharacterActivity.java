@@ -7,7 +7,7 @@ import com.dharmab.sheets.client.places.WelcomePlace;
 import com.dharmab.sheets.client.rpc.CharacterServiceAsync;
 import com.dharmab.sheets.client.views.CharacterView;
 import com.dharmab.sheets.client.widgets.CharacterEditor;
-import com.dharmab.sheets.shared.Character.Character;
+import com.dharmab.sheets.shared.character.Character;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.rpc.AsyncCallback;

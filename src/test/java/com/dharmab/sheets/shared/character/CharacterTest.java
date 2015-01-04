@@ -1,6 +1,5 @@
-package com.dharmab.sheets.server.entities;
+package com.dharmab.sheets.shared.character;
 
-import com.dharmab.sheets.shared.Character.Character;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

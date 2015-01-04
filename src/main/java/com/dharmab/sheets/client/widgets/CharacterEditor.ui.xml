@@ -49,6 +49,54 @@
                     <g:NumberLabel ui:field="charismaModifier"/>
                 </g:HorizontalPanel>
             </g:FlowPanel>
+            <g:FlowPanel>
+                <g:Label text="Passive Wisdom (Perception)"/>
+                <g:NumberLabel ui:field="passiveWisdom"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:Label text="Inspiration"/>
+                <g:CheckBox ui:field="hasInspirationPoint"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:Label text="Proficiency"/>
+                <app:IntegerSpinner ui:field="proficiency"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Armor Class"/>
+                    <app:IntegerSpinner ui:field="armorClass"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Initiative"/>
+                    <app:IntegerSpinner ui:field="initiative"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Speed"/>
+                    <app:IntegerSpinner ui:field="speed"/>
+                </g:HorizontalPanel>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Maximum Hit Points"/>
+                    <app:IntegerSpinner ui:field="currentHitPoints"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Current Hit Points"/>
+                    <app:IntegerSpinner ui:field="maximumHitPoints"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Temporary Hit Points"/>
+                    <app:IntegerSpinner ui:field="temporaryHitPoints"/>
+                </g:HorizontalPanel>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:Label text="Remaining Hit Dice"/>
+                <app:IntegerSpinner ui:field="currentHitDice"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:Label text="Maximum Hit Dice"/>
+                <app:IntegerSpinner ui:field="maximumHitDice"/>
+            </g:FlowPanel>
         </g:VerticalPanel>
     </g:HTMLPanel>
 </ui:UiBinder>
