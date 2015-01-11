@@ -6,7 +6,7 @@ Building:
 
 To use the included Vagrant environment:
 * OSX or Linux
-* [Vagrant](https://vagrantup.com)
+* [Vagrant](https://www.vagrantup.com)
 * Either [VirtualBox](https://www.virtualbox.org/) or [VMware](http://www.vmware.com/products/workstation/)
 * If using VirtualBox, [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) is recommended to resolve issues with mismatching VirtualBox Guest Additions
 * If using VMware, the [VMware Integration plugin for Vagrant](https://www.vagrantup.com/vmware) is requited
