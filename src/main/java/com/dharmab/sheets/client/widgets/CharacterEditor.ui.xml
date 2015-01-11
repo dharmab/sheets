@@ -78,11 +78,11 @@
             <g:FlowPanel>
                 <g:HorizontalPanel>
                     <g:Label text="Maximum Hit Points"/>
-                    <app:IntegerSpinner ui:field="currentHitPoints"/>
+                    <app:IntegerSpinner ui:field="maximumHitPoints"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
                     <g:Label text="Current Hit Points"/>
-                    <app:IntegerSpinner ui:field="maximumHitPoints"/>
+                    <app:IntegerSpinner ui:field="currentHitPoints"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
                     <g:Label text="Temporary Hit Points"/>
