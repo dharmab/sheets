@@ -290,16 +290,22 @@ public class Character implements IsSerializable {
 
     public void setMaximumHitPoints(Integer maximumHitPoints) {
         this.maximumHitPoints = maximumHitPoints;
+        if (getCurrentHitPoints() > maximumHitPoints) {
+            setCurrentHitPoints(maximumHitPoints);
+        }
     }
 
     @Column(name = "current_hit_points")
     @NotNull
-    // todo: min hit points = -conmod, max = maxhitpoints
+    @Min(value = 0, message = "hit points cannot be negative")
     public Integer getCurrentHitPoints() {
         return currentHitPoints;
     }
 
     public void setCurrentHitPoints(Integer currentHitPoints) {
+        if (currentHitPoints > getMaximumHitPoints()) {
+            currentHitPoints = getMaximumHitPoints();
+        }
         this.currentHitPoints = currentHitPoints;
     }
 

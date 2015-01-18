@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class CharacterTest {
     private static final Map<Integer, Integer> abilityScoreModifierLookup = buildAbilityScoreModifierLookup();
@@ -440,5 +439,92 @@ public class CharacterTest {
     private int numberOfConstraintViolations(Character character) {
         Set<ConstraintViolation<Character>> violations = validator.validate(character);
         return violations.size();
+    }
+
+    @Test
+    public void testLessThanZeroCurrentHitPoints() {
+        character.setCurrentHitPoints(-1);
+        assertTrue(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testZeroCurrentHitPoints() throws Exception {
+        character.setCurrentHitPoints(0);
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testLessCurrentHitPointsThanMaximumHitPoints() throws Exception {
+        character.setMaximumHitPoints(10);
+        character.setCurrentHitPoints(9);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getCurrentHitPoints(), (Integer) 9);
+    }
+
+    @Test
+    public void testCurrentHitPointsEqualToMaximumHitPoints() throws Exception {
+        character.setMaximumHitPoints(10);
+        character.setCurrentHitPoints(10);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getCurrentHitPoints(), (Integer) 10);
+    }
+
+    @Test
+    public void testCurrentHitPointsGreaterThanMaximumHitPoints() throws Exception {
+        character.setMaximumHitPoints(10);
+        character.setCurrentHitPoints(11);
+        assertEquals(character.getCurrentHitPoints(), (Integer) 10);
+    }
+
+    @Test
+    public void testMaximumHitPointsLessThanOne() throws Exception {
+        character.setMaximumHitPoints(-1);
+        assertTrue(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testMaximumHitPointsLessThanCurrentHitPoints() throws Exception {
+        character.setMaximumHitPoints(10);
+        character.setCurrentHitPoints(10);
+        character.setMaximumHitPoints(5);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getMaximumHitPoints(), (Integer) 5);
+        assertEquals(character.getCurrentHitPoints(), (Integer) 5);
+    }
+
+    @Test
+    public void testMaximumHitPointsEqualToCurrentHitPoints() throws Exception {
+        character.setMaximumHitPoints(10);
+        character.setCurrentHitPoints(8);
+        character.setMaximumHitPoints(8);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getMaximumHitPoints(), (Integer) 8);
+        assertEquals(character.getCurrentHitPoints(), (Integer) 8);
+    }
+
+    @Test
+    public void testMaximumHitPointsGreaterThanCurrentHitPoints() throws Exception {
+        character.setMaximumHitPoints(10);
+        character.setCurrentHitPoints(10);
+        character.setMaximumHitPoints(15);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getMaximumHitPoints(), (Integer) 15);
+        assertEquals(character.getCurrentHitPoints(), (Integer) 10);
+
+    }
+
+    /**
+     * Test for UI bug where current hit points could not exceed 10.
+     */
+    @Test
+    public void testCurrentHitPointsGreaterThanTen() {
+        character.setMaximumHitPoints(10);
+        character.setCurrentHitPoints(10);
+        character.setMaximumHitPoints(11);
+        character.setCurrentHitPoints(11);
+
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getMaximumHitPoints(), (Integer) 11);
+        assertEquals(character.getCurrentHitPoints(), (Integer) 11);
     }
 }
