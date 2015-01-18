@@ -25,7 +25,6 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
 
     private CharacterView view;
     private Driver driver;
-    private Character character;
     private CharacterServiceAsync characterService;
     private PlaceController placeController;
     private EventBus eventBus;
@@ -59,11 +58,6 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         driver.initialize(view.asEditor());
     }
 
-    private void edit(Character character) {
-        this.character = character;
-        driver.edit(character);
-    }
-
     private void refreshCharacter() {
         characterService.get(characterId, new AsyncCallback<Character>() {
             @Override
@@ -72,11 +66,11 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
             }
 
             @Override
-            public void onSuccess(Character response) {
-                if (response == null) {
+            public void onSuccess(Character character) {
+                if (character == null) {
                     goToCharacterNotFoundPlace();
                 }
-                edit(response);
+                driver.edit(character);
             }
         });
     }
@@ -84,7 +78,7 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     @Override
     public void save() {
         // todo client-side validation
-        driver.flush();
+        Character character = driver.flush();
         Set<ConstraintViolation<Character>> violations = validator.validate(character);
         if (violations.isEmpty()) {
             characterService.merge(character, new AsyncCallback<Boolean>() {

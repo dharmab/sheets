@@ -107,9 +107,6 @@ public class CharacterEditor extends Composite implements Editor<com.dharmab.she
             "maximumHitPoints",
             "currentHitPoints",
             "temporaryHitPoints",
-            "maximumHitPoints",
-            "currentHitPoints",
-            "temporaryHitPoints",
             "proficiency",
             "maximumHitDice",
             "currentHitDice"

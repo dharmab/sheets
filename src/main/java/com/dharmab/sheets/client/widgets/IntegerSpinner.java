@@ -61,21 +61,9 @@ public class IntegerSpinner extends Composite implements LeafValueEditor<Integer
         addToValue(-1);
     }
 
-    private boolean isFieldValueValid() {
-        return field.getValue() != null;
-    }
-
     private void addToValue(int addend) {
-        if (isFieldValueValid()) {
+        if (field.getValue() != null) {
             setValue(field.getValue() + addend, true);
-        }
-    }
-
-    private void setInputValidIndicator(boolean isValid) {
-        if (isValid) {
-            // todo change color to red
-        } else {
-            // todo change color to default
         }
     }
 
