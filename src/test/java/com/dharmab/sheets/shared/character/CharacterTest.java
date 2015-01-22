@@ -62,7 +62,7 @@ public class CharacterTest {
 
     @Before
     public void setUp() throws Exception {
-        character = new Character();
+        character = new Character(true);
     }
 
     @After
