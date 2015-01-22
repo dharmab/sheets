@@ -19,6 +19,7 @@ Spin up the development VM with `vagrant up`. This will download and configure a
 Compile the project with `mvn verify`. This will perform the following steps:
 
 * Download Google Web Toolkit
+* Download third-party libraries and dependencies
 * Generate GWT-RPC async service interfaces
 * Run unit tests
 * Compile the `com.dharmab.sheets.server` and `com.dharmab.sheets.shared` packages to server-side Java
