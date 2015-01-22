@@ -29,7 +29,7 @@ The `vagrant-deploy.sh` script is a convenience script that will run the above b
 
 # Troubleshooting
 
-If the app doesn't work after deploying to the Vagrant VM, try restarting Tomcat with  `vagrant ssh -c 'sudo systemctl restart tomcat'`. This occurs because Tomcat tries to deploy the WAR during the provisioning phase. Since the WAR hasn't been built and deployed at this stage, Tomcat can't find the file and errors. Restarting Tomcat is a simple way of forcing it to find the newly compiled WAR. This should only be required for the first deployment- subsequent redeployments should be detected and Tomcat should reload the WAR automatically.
+If you can't access the webapp after first building the VM, try restarting the firewall with `vagrant ssh -c 'sudo systemctl restart firewalld'`. I'm not sure why the firewall fails.
 
 For other problems, check the Tomcat logs:
 
