@@ -562,6 +562,7 @@ public class Character implements IsSerializable {
         setCurrentSpellSlots(level, capValue(getCurrentSpellSlots(level), value));
     }
 
+    @Column(name = "maximum_first_level_spell_slots")
     @Min(value = 0, message = "maximum spell slots cannot be negative")
     @NotNull
     public Integer getMaxFirstLevelSpellSlots() {
@@ -572,6 +573,7 @@ public class Character implements IsSerializable {
         setMaximumSpellSlots(1, maxFirstLevelSpellSlots);
     }
 
+    @Column(name = "current_first_level_spell_slots")
     @Min(value = 0, message = "current spell slots cannot be negative")
     @NotNull
     public Integer getCurrentFirstLevelSpellSlots() {
@@ -582,6 +584,7 @@ public class Character implements IsSerializable {
         setCurrentSpellSlots(1, currentFirstLevelSpellSlots);
     }
 
+    @Column(name = "maximum_second_level_spell_slots")
     @Min(value = 0, message = "maximum spell slots cannot be negative")
     @NotNull
     public Integer getMaxSecondLevelSpellSlots() {
@@ -592,6 +595,7 @@ public class Character implements IsSerializable {
         setMaximumSpellSlots(2, maxSecondLevelSpellSlots);
     }
 
+    @Column(name = "current_second_level_spell_slots")
     @Min(value = 0, message = "current spell slots cannot be negative")
     @NotNull
     public Integer getCurrentSecondLevelSpellSlots() {
@@ -602,6 +606,7 @@ public class Character implements IsSerializable {
         setCurrentSpellSlots(2, currentSecondLevelSpellSlots);
     }
 
+    @Column(name = "maximum_third_level_spell_slots")
     @Min(value = 0, message = "maximum spell slots cannot be negative")
     @NotNull
     public Integer getMaxThirdLevelSpellSlots() {
@@ -612,6 +617,7 @@ public class Character implements IsSerializable {
         setMaximumSpellSlots(3, maxThirdLevelSpellSlots);
     }
 
+    @Column(name = "current_third_level_spell_slots")
     @Min(value = 0, message = "current spell slots cannot be negative")
     @NotNull
     public Integer getCurrentThirdLevelSpellSlots() {
@@ -622,6 +628,7 @@ public class Character implements IsSerializable {
         setCurrentSpellSlots(3, currentThirdLevelSpellSlots);
     }
 
+    @Column(name = "maximum_fourth_level_spell_slots")
     @Min(value = 0, message = "maximum spell slots cannot be negative")
     @NotNull
     public Integer getMaxFourthLevelSpellSlots() {
@@ -632,6 +639,7 @@ public class Character implements IsSerializable {
         setMaximumSpellSlots(4, maxFourthLevelSpellSlots);
     }
 
+    @Column(name = "current_fourth_level_spell_slots")
     @Min(value = 0, message = "current spell slots cannot be negative")
     @NotNull
     public Integer getCurrentFourthLevelSpellSlots() {
@@ -642,6 +650,7 @@ public class Character implements IsSerializable {
         setCurrentSpellSlots(4, currentFourthLevelSpellSlots);
     }
 
+    @Column(name = "maximum_fifth_level_spell_slots")
     @Min(value = 0, message = "maximum spell slots cannot be negative")
     @NotNull
     public Integer getMaxFifthLevelSpellSlots() {
@@ -652,6 +661,7 @@ public class Character implements IsSerializable {
         setMaximumSpellSlots(5, maxFifthLevelSpellSlots);
     }
 
+    @Column(name = "current_fifth_level_spell_slots")
     @Min(value = 0, message = "current spell slots cannot be negative")
     @NotNull
     public Integer getCurrentFifthLevelSpellSlots() {
@@ -662,6 +672,7 @@ public class Character implements IsSerializable {
         setCurrentSpellSlots(5, currentFifthLevelSpellSlots);
     }
 
+    @Column(name = "maximum_sixth_level_spell_slots")
     @Min(value = 0, message = "maximum spell slots cannot be negative")
     @NotNull
     public Integer getMaxSixthLevelSpellSlots() {
@@ -672,6 +683,7 @@ public class Character implements IsSerializable {
         setMaximumSpellSlots(6, maxSixthLevelSpellSlots);
     }
 
+    @Column(name = "current_sixth_level_spell_slots")
     @Min(value = 0, message = "current spell slots cannot be negative")
     @NotNull
     public Integer getCurrentSixthLevelSpellSlots() {
@@ -682,6 +694,7 @@ public class Character implements IsSerializable {
         setCurrentSpellSlots(6, currentSixthLevelSpellSlots);
     }
 
+    @Column(name = "maximum_seventh_level_spell_slots")
     @Min(value = 0, message = "maximum spell slots cannot be negative")
     @NotNull
     public Integer getMaxSeventhLevelSpellSlots() {
@@ -692,6 +705,7 @@ public class Character implements IsSerializable {
         setMaximumSpellSlots(7, maxSeventhLevelSpellSlots);
     }
 
+    @Column(name = "current_seventh_level_spell_slots")
     @Min(value = 0, message = "current spell slots cannot be negative")
     @NotNull
     public Integer getCurrentSeventhLevelSpellSlots() {
@@ -702,6 +716,7 @@ public class Character implements IsSerializable {
         setCurrentSpellSlots(7, currentSeventhLevelSpellSlots);
     }
 
+    @Column(name = "maximum_eighth_level_spell_slots")
     @Min(value = 0, message = "maximum spell slots cannot be negative")
     @NotNull
     public Integer getMaxEighthLevelSpellSlots() {
@@ -712,6 +727,7 @@ public class Character implements IsSerializable {
         setMaximumSpellSlots(8, maxEightLevelSpellSlots);
     }
 
+    @Column(name = "current_eighth_level_spell_slots")
     @Min(value = 0, message = "current spell slots cannot be negative")
     @NotNull
     public Integer getCurrentEighthLevelSpellSlots() {
@@ -722,6 +738,7 @@ public class Character implements IsSerializable {
         setCurrentSpellSlots(8, currentFirstLevelSpellSlots);
     }
 
+    @Column(name = "maximum_ninth_level_spell_slots")
     @Min(value = 0, message = "maximum spell slots cannot be negative")
     @NotNull
     public Integer getMaxNinthLevelSpellSlots() {
@@ -732,6 +749,7 @@ public class Character implements IsSerializable {
         setMaximumSpellSlots(9, maxNinthLevelSpellSlots);
     }
 
+    @Column(name = "current_ninth_level_spell_slots")
     @Min(value = 0, message = "current spell slots cannot be negative")
     @NotNull
     public Integer getCurrentNinthLevelSpellSlots() {
