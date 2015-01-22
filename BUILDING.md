@@ -9,7 +9,7 @@ To use the included Vagrant environment:
 * [Vagrant](https://www.vagrantup.com)
 * Either [VirtualBox](https://www.virtualbox.org/) or [VMware](http://www.vmware.com/products/workstation/)
 * If using VirtualBox, [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) is recommended to resolve issues with mismatching VirtualBox Guest Additions
-* If using VMware, the [VMware Integration plugin for Vagrant](https://www.vagrantup.com/vmware) is requited
+* If using VMware, the [VMware Integration plugin for Vagrant](https://www.vagrantup.com/vmware) is required
 * [Ansible](http://docs.ansible.com/index.html)
 
 # Instructions
@@ -26,7 +26,7 @@ Compile the project with `mvn verify`. This will perform the following steps:
 * Compile the `com.dharmab.sheets.client` and `com.dharmab.sheets.shared` packages to client-side JavaScript
 * Package the application as a Web Application Archive (WAR), which can be deployed to a Tomcat 7 server
 
-The `vagrant-deploy.sh` script is a convenience script that will run the above build and (re)deploy the WAR to the Vagrant VM. The application will be accessible at `https://localhost:8443`. You should receive a warning about an insecure SSL key- this is expected, as the development environment uses an insecure, pregenerated key.
+The `vagrant-deploy.sh` script is a convenience script that will run the above build and (re)deploy the WAR to the Vagrant VM. The application will be accessible at [https://localhost:8443](https://localhost:8443). You should receive a warning about an insecure SSL key- this is expected, as the development environment uses an insecure, pregenerated key.
 
 # Troubleshooting
 
