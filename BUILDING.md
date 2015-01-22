@@ -23,7 +23,7 @@ Compile the project with `mvn verify`. This will perform the following steps:
 * Generate GWT-RPC async service interfaces
 * Run unit tests
 * Compile the `com.dharmab.sheets.server` and `com.dharmab.sheets.shared` packages to server-side Java
-* Compile the `come.dharmab.sheets.client` and `com.dharmab.sheets.shared` packages to client-side JavaScript
+* Compile the `com.dharmab.sheets.client` and `com.dharmab.sheets.shared` packages to client-side JavaScript
 * Package the application as a Web Application Archive (WAR), which can be deployed to a Tomcat 7 server
 
 The `vagrant-deploy.sh` script is a convenience script that will run the above build and (re)deploy the WAR to the Vagrant VM. The application will be accessible at `https://localhost:8443`. You should receive a warning about an insecure SSL key- this is expected, as the development environment uses an insecure, pregenerated key.
