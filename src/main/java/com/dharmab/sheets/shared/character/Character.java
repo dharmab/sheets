@@ -305,12 +305,7 @@ public class Character implements IsSerializable {
     }
 
     public void setCurrentHitPoints(Integer currentHitPoints) {
-        // Need to check for null during client-side use
-        if (getMaximumHitPoints() != null) {
-            if (currentHitPoints > getMaximumHitPoints()) {
-                currentHitPoints = getMaximumHitPoints();
-            }
-        }
+        currentHitPoints = capValue(currentHitPoints, maximumHitPoints);
         this.currentHitPoints = currentHitPoints;
     }
 
@@ -323,13 +318,23 @@ public class Character implements IsSerializable {
 
     public void setMaximumHitPoints(Integer maximumHitPoints) {
         this.maximumHitPoints = maximumHitPoints;
+        setCurrentHitPoints(capValue(getCurrentHitPoints(), maximumHitPoints));
+    }
 
-        // Need to check for null during client-side use
-        if (getCurrentHitPoints() != null) {
-            if (getCurrentHitPoints() > maximumHitPoints) {
-                setCurrentHitPoints(maximumHitPoints);
-            }
+    /**
+     * "Cap" a value to be no greater than a given maximum
+     *
+     * @param value   The value to cap
+     * @param maximum The maximum value
+     * @return If maximum is not null and lower than the given value, return the maximum value. Otherwise, return the
+     * given value.
+     */
+    private Integer capValue(Integer value, Integer maximum) {
+        // Check for null values, which may occur during client-side GWT operations (RPC, editor, etc.)
+        if (maximum == null) {
+            return value;
         }
+        return value > maximum ? maximum : value;
     }
 
     @Column(name = "temporary_hit_points")
@@ -410,21 +415,25 @@ public class Character implements IsSerializable {
 
     @Column(name = "maximum_hit_dice")
     @NotNull
+    @Min(value = 0, message = "maximum hit dice cannot be negative")
     public Integer getMaximumHitDice() {
         return maximumHitDice;
     }
 
     public void setMaximumHitDice(Integer maximumHitDice) {
         this.maximumHitDice = maximumHitDice;
+        setCurrentHitDice(capValue(getCurrentHitDice(), maximumHitDice));
     }
 
     @Column(name = "current_hit_dice")
     @NotNull
+    @Min(value = 0, message = "current hit dice cannot be negative")
     public Integer getCurrentHitDice() {
         return currentHitDice;
     }
 
     public void setCurrentHitDice(Integer currentHitDice) {
+        currentHitDice = capValue(currentHitDice, maximumHitDice);
         this.currentHitDice = currentHitDice;
     }
 }

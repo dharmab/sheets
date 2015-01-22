@@ -510,8 +510,80 @@ public class CharacterTest {
         assertFalse(hasConstraintViolations(character));
         assertEquals(character.getMaximumHitPoints(), (Integer) 15);
         assertEquals(character.getCurrentHitPoints(), (Integer) 10);
-
     }
+
+    @Test
+    public void testLessThanZeroCurrentHitDice() {
+        character.setCurrentHitDice(-1);
+        assertTrue(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testZeroCurrentHitDice() throws Exception {
+        character.setCurrentHitDice(0);
+        assertFalse(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testLessCurrentHitDiceThanMaximumHitDice() throws Exception {
+        character.setMaximumHitDice(10);
+        character.setCurrentHitDice(9);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getCurrentHitDice(), (Integer) 9);
+    }
+
+    @Test
+    public void testCurrentHitDiceEqualToMaximumHitDice() throws Exception {
+        character.setMaximumHitDice(10);
+        character.setCurrentHitDice(10);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getCurrentHitDice(), (Integer) 10);
+    }
+
+    @Test
+    public void testCurrentHitDiceGreaterThanMaximumHitDice() throws Exception {
+        character.setMaximumHitDice(10);
+        character.setCurrentHitDice(11);
+        assertEquals(character.getCurrentHitDice(), (Integer) 10);
+    }
+
+    @Test
+    public void testMaximumHitDiceLessThanOne() throws Exception {
+        character.setMaximumHitDice(-1);
+        assertTrue(hasConstraintViolations(character));
+    }
+
+    @Test
+    public void testMaximumHitDiceLessThanCurrentHitDice() throws Exception {
+        character.setMaximumHitDice(10);
+        character.setCurrentHitDice(10);
+        character.setMaximumHitDice(5);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getMaximumHitDice(), (Integer) 5);
+        assertEquals(character.getCurrentHitDice(), (Integer) 5);
+    }
+
+    @Test
+    public void testMaximumHitDiceEqualToCurrentHitDice() throws Exception {
+        character.setMaximumHitDice(10);
+        character.setCurrentHitDice(8);
+        character.setMaximumHitDice(8);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getMaximumHitDice(), (Integer) 8);
+        assertEquals(character.getCurrentHitDice(), (Integer) 8);
+    }
+
+    @Test
+    public void testMaximumHitDiceGreaterThanCurrentHitDice() throws Exception {
+        character.setMaximumHitDice(10);
+        character.setCurrentHitDice(10);
+        character.setMaximumHitDice(15);
+        assertFalse(hasConstraintViolations(character));
+        assertEquals(character.getMaximumHitDice(), (Integer) 15);
+        assertEquals(character.getCurrentHitDice(), (Integer) 10);
+    }
+
+
 
     /**
      * Test for UI bug where current hit points could not exceed 10.
