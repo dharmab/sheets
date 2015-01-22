@@ -26,7 +26,7 @@ Compile the project with `mvn verify`. This will perform the following steps:
 * Compile the `com.dharmab.sheets.client` and `com.dharmab.sheets.shared` packages to client-side JavaScript
 * Package the application as a Web Application Archive (WAR), which can be deployed to a Tomcat 7 server
 
-The `vagrant-deploy.sh` script is a convenience script that will run the above build and (re)deploy the WAR to the Vagrant VM. The application will be accessible at `https://localhost:8443`. You should receive a warning about an insecure SSL key- this is expected, as the development environment uses an insecure, pregenerated key.
+The `vagrant-deploy.sh` script is a convenience script that will run the above build and (re)deploy the WAR to the Vagrant VM. The application will be accessible at [https://localhost:8443](https://localhost:8443). You should receive a warning about an insecure SSL key- this is expected, as the development environment uses an insecure, pregenerated key.
 
 # Troubleshooting
 
