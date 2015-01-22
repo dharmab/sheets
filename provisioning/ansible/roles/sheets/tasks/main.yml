@@ -54,6 +54,11 @@
   sudo_user: postgres
   register: postgresql_access
 
+- name: configure postgresql listening addresses
+  lineinfile: dest=/var/lib/pgsql/data/postgresql.conf regexp='^listen_addresses*' line="listen_addresses = '*'"
+  sudo: yes
+  sudo_user: postgres
+
 - name: restart postgresql
   service: name=postgresql state=restarted
   when: postgresql_installation|changed or postgresql_access|changed
