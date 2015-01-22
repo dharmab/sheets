@@ -107,6 +107,11 @@ public class Character implements IsSerializable {
             hasInspirationPoint = false;
             maximumHitDice = 2;
             currentHitDice = 2;
+
+            for (int i = 1; i <= 9; i++) {
+                setCurrentSpellSlots(i, 0);
+                setMaximumSpellSlots(i, 0);
+            }
         }
     }
 
@@ -435,5 +440,305 @@ public class Character implements IsSerializable {
     public void setCurrentHitDice(Integer currentHitDice) {
         currentHitDice = capValue(currentHitDice, maximumHitDice);
         this.currentHitDice = currentHitDice;
+    }
+
+    private Integer getCurrentSpellSlots(int level) {
+        switch (level) {
+            case 1:
+                return currentFirstLevelSpellSlots;
+            case 2:
+                return currentSecondLevelSpellSlots;
+            case 3:
+                return currentThirdLevelSpellSlots;
+            case 4:
+                return currentFourthLevelSpellSlots;
+            case 5:
+                return currentFifthLevelSpellSlots;
+            case 6:
+                return currentSixthLevelSpellSlots;
+            case 7:
+                return currentSeventhLevelSpellSlots;
+            case 8:
+                return currentEighthLevelSpellSlots;
+            case 9:
+                return currentNinthLevelSpellSlots;
+            default:
+                throw new IllegalArgumentException("no spells slots for level " + level);
+        }
+    }
+
+    private void setCurrentSpellSlots(int level, Integer value) {
+        value = capValue(value, getMaximumSpellSlots(level));
+        switch (level) {
+            case 1:
+                currentFirstLevelSpellSlots = value;
+                break;
+            case 2:
+                currentSecondLevelSpellSlots = value;
+                break;
+            case 3:
+                currentThirdLevelSpellSlots = value;
+                break;
+            case 4:
+                currentFourthLevelSpellSlots = value;
+                break;
+            case 5:
+                currentFifthLevelSpellSlots = value;
+                break;
+            case 6:
+                currentSixthLevelSpellSlots = value;
+                break;
+            case 7:
+                currentSeventhLevelSpellSlots = value;
+                break;
+            case 8:
+                currentEighthLevelSpellSlots = value;
+                break;
+            case 9:
+                currentNinthLevelSpellSlots = value;
+                break;
+            default:
+                throw new IllegalArgumentException("no spells slots for level " + level);
+        }
+    }
+
+    private Integer getMaximumSpellSlots(int level) {
+        switch (level) {
+            case 1:
+                return maxFirstLevelSpellSlots;
+            case 2:
+                return maxSecondLevelSpellSlots;
+            case 3:
+                return maxThirdLevelSpellSlots;
+            case 4:
+                return maxFourthLevelSpellSlots;
+            case 5:
+                return maxFifthLevelSpellSlots;
+            case 6:
+                return maxSixthLevelSpellSlots;
+            case 7:
+                return maxSeventhLevelSpellSlots;
+            case 8:
+                return maxEighthLevelSpellSlots;
+            case 9:
+                return maxNinthLevelSpellSlots;
+            default:
+                throw new IllegalArgumentException("no spells slots for level " + level);
+        }
+    }
+
+    private void setMaximumSpellSlots(int level, Integer value) {
+        switch (level) {
+            case 1:
+                maxFirstLevelSpellSlots = value;
+                break;
+            case 2:
+                maxSecondLevelSpellSlots = value;
+                break;
+            case 3:
+                maxThirdLevelSpellSlots = value;
+                break;
+            case 4:
+                maxFourthLevelSpellSlots = value;
+                break;
+            case 5:
+                maxFifthLevelSpellSlots = value;
+                break;
+            case 6:
+                maxSixthLevelSpellSlots = value;
+                break;
+            case 7:
+                maxSeventhLevelSpellSlots = value;
+                break;
+            case 8:
+                maxEighthLevelSpellSlots = value;
+                break;
+            case 9:
+                maxNinthLevelSpellSlots = value;
+                break;
+            default:
+                throw new IllegalArgumentException("no spells slots for level " + level);
+        }
+        setCurrentSpellSlots(level, capValue(getCurrentSpellSlots(level), value));
+    }
+
+    @Min(value = 0, message = "maximum spell slots cannot be negative")
+    @NotNull
+    public Integer getMaxFirstLevelSpellSlots() {
+        return getMaximumSpellSlots(1);
+    }
+
+    public void setMaxFirstLevelSpellSlots(Integer maxFirstLevelSpellSlots) {
+        setMaximumSpellSlots(1, maxFirstLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "current spell slots cannot be negative")
+    @NotNull
+    public Integer getCurrentFirstLevelSpellSlots() {
+        return getCurrentSpellSlots(1);
+    }
+
+    public void setCurrentFirstLevelSpellSlots(Integer currentFirstLevelSpellSlots) {
+        setCurrentSpellSlots(1, currentFirstLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "maximum spell slots cannot be negative")
+    @NotNull
+    public Integer getMaxSecondLevelSpellSlots() {
+        return getMaximumSpellSlots(2);
+    }
+
+    public void setMaxSecondLevelSpellSlots(Integer maxSecondLevelSpellSlots) {
+        setMaximumSpellSlots(2, maxSecondLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "current spell slots cannot be negative")
+    @NotNull
+    public Integer getCurrentSecondLevelSpellSlots() {
+        return getCurrentSpellSlots(2);
+    }
+
+    public void setCurrentSecondLevelSpellSlots(Integer currentSecondLevelSpellSlots) {
+        setCurrentSpellSlots(2, currentSecondLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "maximum spell slots cannot be negative")
+    @NotNull
+    public Integer getMaxThirdLevelSpellSlots() {
+        return getMaximumSpellSlots(3);
+    }
+
+    public void setMaxThirdLevelSpellSlots(Integer maxThirdLevelSpellSlots) {
+        setMaximumSpellSlots(3, maxThirdLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "current spell slots cannot be negative")
+    @NotNull
+    public Integer getCurrentThirdLevelSpellSlots() {
+        return getCurrentSpellSlots(3);
+    }
+
+    public void setCurrentThirdLevelSpellSlots(Integer currentThirdLevelSpellSlots) {
+        setCurrentSpellSlots(3, currentThirdLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "maximum spell slots cannot be negative")
+    @NotNull
+    public Integer getMaxFourthLevelSpellSlots() {
+        return getMaximumSpellSlots(4);
+    }
+
+    public void setMaxFourthLevelSpellSlots(Integer maxFourthLevelSpellSlots) {
+        setMaximumSpellSlots(4, maxFourthLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "current spell slots cannot be negative")
+    @NotNull
+    public Integer getCurrentFourthLevelSpellSlots() {
+        return getCurrentSpellSlots(4);
+    }
+
+    public void setCurrentFourthLevelSpellSlots(Integer currentFourthLevelSpellSlots) {
+        setCurrentSpellSlots(4, currentFourthLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "maximum spell slots cannot be negative")
+    @NotNull
+    public Integer getMaxFifthLevelSpellSlots() {
+        return getMaximumSpellSlots(5);
+    }
+
+    public void setMaxFifthLevelSpellSlots(Integer maxFifthLevelSpellSlots) {
+        setMaximumSpellSlots(5, maxFifthLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "current spell slots cannot be negative")
+    @NotNull
+    public Integer getCurrentFifthLevelSpellSlots() {
+        return getCurrentSpellSlots(5);
+    }
+
+    public void setCurrentFifthLevelSpellSlots(Integer currentFifthLevelSpellSlots) {
+        setCurrentSpellSlots(5, currentFifthLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "maximum spell slots cannot be negative")
+    @NotNull
+    public Integer getMaxSixthLevelSpellSlots() {
+        return getMaximumSpellSlots(6);
+    }
+
+    public void setMaxSixthLevelSpellSlots(Integer maxSixthLevelSpellSlots) {
+        setMaximumSpellSlots(6, maxSixthLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "current spell slots cannot be negative")
+    @NotNull
+    public Integer getCurrentSixthLevelSpellSlots() {
+        return getCurrentSpellSlots(6);
+    }
+
+    public void setCurrentSixthLevelSpellSlots(Integer currentSixthLevelSpellSlots) {
+        setCurrentSpellSlots(6, currentSixthLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "maximum spell slots cannot be negative")
+    @NotNull
+    public Integer getMaxSeventhLevelSpellSlots() {
+        return getMaximumSpellSlots(7);
+    }
+
+    public void setMaxSeventhLevelSpellSlots(Integer maxSeventhLevelSpellSlots) {
+        setMaximumSpellSlots(7, maxSeventhLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "current spell slots cannot be negative")
+    @NotNull
+    public Integer getCurrentSeventhLevelSpellSlots() {
+        return getCurrentSpellSlots(7);
+    }
+
+    public void setCurrentSeventhLevelSpellSlots(Integer currentSeventhLevelSpellSlots) {
+        setCurrentSpellSlots(7, currentSeventhLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "maximum spell slots cannot be negative")
+    @NotNull
+    public Integer getMaxEighthLevelSpellSlots() {
+        return getMaximumSpellSlots(8);
+    }
+
+    public void setMaxEighthLevelSpellSlots(Integer maxEightLevelSpellSlots) {
+        setMaximumSpellSlots(8, maxEightLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "current spell slots cannot be negative")
+    @NotNull
+    public Integer getCurrentEighthLevelSpellSlots() {
+        return getCurrentSpellSlots(8);
+    }
+
+    public void setCurrentEighthLevelSpellSlots(Integer currentFirstLevelSpellSlots) {
+        setCurrentSpellSlots(8, currentFirstLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "maximum spell slots cannot be negative")
+    @NotNull
+    public Integer getMaxNinthLevelSpellSlots() {
+        return getMaximumSpellSlots(9);
+    }
+
+    public void setMaxNinthLevelSpellSlots(Integer maxNinthLevelSpellSlots) {
+        setMaximumSpellSlots(9, maxNinthLevelSpellSlots);
+    }
+
+    @Min(value = 0, message = "current spell slots cannot be negative")
+    @NotNull
+    public Integer getCurrentNinthLevelSpellSlots() {
+        return getCurrentSpellSlots(9);
+    }
+
+    public void setCurrentNinthLevelSpellSlots(Integer currentFirstLevelSpellSlots) {
+        setCurrentSpellSlots(9, currentFirstLevelSpellSlots);
     }
 }

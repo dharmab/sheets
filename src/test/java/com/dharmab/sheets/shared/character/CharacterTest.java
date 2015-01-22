@@ -583,8 +583,6 @@ public class CharacterTest {
         assertEquals(character.getCurrentHitDice(), (Integer) 10);
     }
 
-
-
     /**
      * Test for UI bug where current hit points could not exceed 10.
      */
@@ -598,5 +596,212 @@ public class CharacterTest {
         assertFalse(hasConstraintViolations(character));
         assertEquals(character.getMaximumHitPoints(), (Integer) 11);
         assertEquals(character.getCurrentHitPoints(), (Integer) 11);
+    }
+
+    @Test
+    public void testCurrentSpellSlotsLessThanZero() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            int previousValue = getCurrentSpellSlots(character, i);
+            setCurrentSpellSlots(character, i, -1);
+            assertTrue(hasConstraintViolations(character));
+            setCurrentSpellSlots(character, i, previousValue);
+        }
+    }
+
+    @Test
+    public void testMaxFirstLevelSpellSlotsLessThanZero() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            int previousValue = getMaxSpellSlots(character, i);
+            setMaxSpellSlots(character, i, -1);
+            assertTrue(hasConstraintViolations(character));
+            setMaxSpellSlots(character, i, previousValue);
+        }
+    }
+
+    @Test
+    public void testCurrentSpellSlotsEqualToMaximumSpellSlots() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            setMaxSpellSlots(character, i, 5);
+            setCurrentSpellSlots(character, i, 5);
+            assertFalse(hasConstraintViolations(character));
+            assertEquals(getCurrentSpellSlots(character, i), (Integer) 5);
+            assertEquals(getMaxSpellSlots(character, i), (Integer) 5);
+        }
+    }
+
+    @Test
+    public void testCurrentSpellSlotsLessThanMaximumSpellSlots() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            setMaxSpellSlots(character, i, 5);
+            setCurrentSpellSlots(character, i, 4);
+            assertFalse(hasConstraintViolations(character));
+            assertEquals(getCurrentSpellSlots(character, i), (Integer) 4);
+            assertEquals(getMaxSpellSlots(character, i), (Integer) 5);
+        }
+    }
+
+    @Test
+    public void testCurrentSpellSlotsGreaterThanMaximumSpellSlots() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            setMaxSpellSlots(character, i, 5);
+            setCurrentSpellSlots(character, i, 6);
+            assertFalse(hasConstraintViolations(character));
+            assertEquals(getCurrentSpellSlots(character, i), (Integer) 5);
+            assertEquals(getMaxSpellSlots(character, i), (Integer) 5);
+        }
+    }
+
+    @Test
+    public void testMaximumSpellSlotsLessThanCurrentSpellSlots() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            setMaxSpellSlots(character, i, 5);
+            setCurrentSpellSlots(character, i, 5);
+            setMaxSpellSlots(character, i, 4);
+            assertFalse(hasConstraintViolations(character));
+            assertEquals(getCurrentSpellSlots(character, i), (Integer) 4);
+            assertEquals(getMaxSpellSlots(character, i), (Integer) 4);
+        }
+    }
+
+    @Test
+    public void testMaximumSpellSlotsEqualToCurrentSpellSlots() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            setMaxSpellSlots(character, i, 6);
+            setCurrentSpellSlots(character, i, 5);
+            setMaxSpellSlots(character, i, 5);
+            assertFalse(hasConstraintViolations(character));
+            assertEquals(getCurrentSpellSlots(character, i), (Integer) 5);
+            assertEquals(getMaxSpellSlots(character, i), (Integer) 5);
+        }
+    }
+
+    @Test
+    public void testMaximumSpellSlotsGreaterThanCurrentSpellSlots() throws Exception {
+        for (int i = 1; i <= 9; i++) {
+            setMaxSpellSlots(character, i, 5);
+            setCurrentSpellSlots(character, i, 5);
+            setMaxSpellSlots(character, i, 6);
+            assertFalse(hasConstraintViolations(character));
+            assertEquals(getCurrentSpellSlots(character, i), (Integer) 5);
+            assertEquals(getMaxSpellSlots(character, i), (Integer) 6);
+        }
+    }
+
+    private Integer getCurrentSpellSlots(Character character, int level) {
+        switch (level) {
+            case 1:
+                return character.getCurrentFirstLevelSpellSlots();
+            case 2:
+                return character.getCurrentSecondLevelSpellSlots();
+            case 3:
+                return character.getCurrentThirdLevelSpellSlots();
+            case 4:
+                return character.getCurrentFourthLevelSpellSlots();
+            case 5:
+                return character.getCurrentFifthLevelSpellSlots();
+            case 6:
+                return character.getCurrentSixthLevelSpellSlots();
+            case 7:
+                return character.getCurrentSeventhLevelSpellSlots();
+            case 8:
+                return character.getCurrentEighthLevelSpellSlots();
+            case 9:
+                return character.getCurrentNinthLevelSpellSlots();
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    private void setCurrentSpellSlots(Character character, int level, int value) {
+        switch (level) {
+            case 1:
+                character.setCurrentFirstLevelSpellSlots(value);
+                break;
+            case 2:
+                character.setCurrentSecondLevelSpellSlots(value);
+                break;
+            case 3:
+                character.setCurrentThirdLevelSpellSlots(value);
+                break;
+            case 4:
+                character.setCurrentFourthLevelSpellSlots(value);
+                break;
+            case 5:
+                character.setCurrentFifthLevelSpellSlots(value);
+                break;
+            case 6:
+                character.setCurrentSixthLevelSpellSlots(value);
+                break;
+            case 7:
+                character.setCurrentSeventhLevelSpellSlots(value);
+                break;
+            case 8:
+                character.setCurrentEighthLevelSpellSlots(value);
+                break;
+            case 9:
+                character.setCurrentNinthLevelSpellSlots(value);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    private Integer getMaxSpellSlots(Character character, int level) {
+        switch (level) {
+            case 1:
+                return character.getMaxFirstLevelSpellSlots();
+            case 2:
+                return character.getMaxSecondLevelSpellSlots();
+            case 3:
+                return character.getMaxThirdLevelSpellSlots();
+            case 4:
+                return character.getMaxFourthLevelSpellSlots();
+            case 5:
+                return character.getMaxFifthLevelSpellSlots();
+            case 6:
+                return character.getMaxSixthLevelSpellSlots();
+            case 7:
+                return character.getMaxSeventhLevelSpellSlots();
+            case 8:
+                return character.getMaxEighthLevelSpellSlots();
+            case 9:
+                return character.getMaxNinthLevelSpellSlots();
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    private void setMaxSpellSlots(Character character, int level, int value) {
+        switch (level) {
+            case 1:
+                character.setMaxFirstLevelSpellSlots(value);
+                break;
+            case 2:
+                character.setMaxSecondLevelSpellSlots(value);
+                break;
+            case 3:
+                character.setMaxThirdLevelSpellSlots(value);
+                break;
+            case 4:
+                character.setMaxFourthLevelSpellSlots(value);
+                break;
+            case 5:
+                character.setMaxFifthLevelSpellSlots(value);
+                break;
+            case 6:
+                character.setMaxSixthLevelSpellSlots(value);
+                break;
+            case 7:
+                character.setMaxSeventhLevelSpellSlots(value);
+                break;
+            case 8:
+                character.setMaxEighthLevelSpellSlots(value);
+                break;
+            case 9:
+                character.setMaxNinthLevelSpellSlots(value);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 }
