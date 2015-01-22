@@ -9,7 +9,7 @@ To use the included Vagrant environment:
 * [Vagrant](https://www.vagrantup.com)
 * Either [VirtualBox](https://www.virtualbox.org/) or [VMware](http://www.vmware.com/products/workstation/)
 * If using VirtualBox, [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) is recommended to resolve issues with mismatching VirtualBox Guest Additions
-* If using VMware, the [VMware Integration plugin for Vagrant](https://www.vagrantup.com/vmware) is requited
+* If using VMware, the [VMware Integration plugin for Vagrant](https://www.vagrantup.com/vmware) is required
 * [Ansible](http://docs.ansible.com/index.html)
 
 # Instructions
