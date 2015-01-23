@@ -1,0 +1,22 @@
+.characterEditor {
+
+}
+
+.characterLabel {
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+}
+
+.characterNumberBox {
+
+}
+
+.characterIntegerSpinner {
+
+}
+
+.characterTextBox {
+    color: black;
+    background-color: white;
+    font-size: 0.7em;
+}

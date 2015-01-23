@@ -1,0 +1,20 @@
+.integerSpinnerField {
+    font-size: 1.3em;
+    color: black;
+    background-color: white;
+    min-width: 1.6em;
+    max-width: 1.6em;
+    text-align: center;
+    border-radius: 30px;
+}
+
+.integerSpinnerButton {
+    font-size: 1.3em;
+    color: black;
+    background-color: white;
+    border-radius: 30px;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+    min-width: 1.6em;
+    max-width: 1.6em;
+}

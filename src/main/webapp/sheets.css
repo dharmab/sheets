@@ -1,3 +1,9 @@
 body {
     font-family: Arial, sans-serif;
+    font-size: 1.5em;
+}
+
+.gwt-Button {
+    color: black;
+    background-color: white;
 }

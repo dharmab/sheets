@@ -1,101 +1,122 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'
              xmlns:app='urn:import:com.dharmab.sheets.client.widgets'>
+    <ui:style src="CharacterEditor.css"/>
     <g:HTMLPanel>
         <g:VerticalPanel>
             <g:FlowPanel>
-                <g:Label text="Character Name"/>
-                <g:TextBox ui:field="name"/>
-                <g:Label text="Level"/>
-                <app:IntegerSpinner ui:field="level"/>
-                <g:Label text="Class"/>
-                <g:TextBox ui:field="characterClass"/>
-                <g:Label text="Background"/>
-                <g:TextBox ui:field="background"/>
-                <g:Label text="Race"/>
-                <g:TextBox ui:field="race"/>
-                <g:Label text="Experience Points"/>
-                <app:IntegerSpinner ui:field="experiencePoints"/>
-            </g:FlowPanel>
-            <g:FlowPanel>
                 <g:HorizontalPanel>
-                    <g:Label text="Strength"/>
-                    <app:IntegerSpinner ui:field="strength"/>
-                    <g:NumberLabel ui:field="strengthModifier"/>
+                    <g:Label text="Character Name" styleName="{style.characterLabel}"/>
+                    <g:TextBox ui:field="name" styleName="{style.characterTextBox}"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
-                    <g:Label text="Dexterity"/>
-                    <app:IntegerSpinner ui:field="dexterity"/>
-                    <g:NumberLabel ui:field="dexterityModifier"/>
+                    <g:Label text="Level" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="level" styleName="{style.characterIntegerSpinner}"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
-                    <g:Label text="Constitution"/>
-                    <app:IntegerSpinner ui:field="constitution"/>
-                    <g:NumberLabel ui:field="constitutionModifier"/>
+                    <g:Label text="Class" styleName="{style.characterLabel}"/>
+                    <g:TextBox ui:field="characterClass" styleName="{style.characterTextBox}"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
-                    <g:Label text="Intelligence"/>
-                    <app:IntegerSpinner ui:field="intelligence"/>
-                    <g:NumberLabel ui:field="intelligenceModifier"/>
+                    <g:Label text="Background" styleName="{style.characterLabel}"/>
+                    <g:TextBox ui:field="background" styleName="{style.characterTextBox}"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
-                    <g:Label text="Wisdom"/>
-                    <app:IntegerSpinner ui:field="wisdom"/>
-                    <g:NumberLabel ui:field="wisdomModifier"/>
+                    <g:Label text="Race" styleName="{style.characterLabel}"/>
+                    <g:TextBox ui:field="race" styleName="{style.characterTextBox}"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
-                    <g:Label text="Charisma"/>
-                    <app:IntegerSpinner ui:field="charisma"/>
-                    <g:NumberLabel ui:field="charismaModifier"/>
-                </g:HorizontalPanel>
-            </g:FlowPanel>
-            <g:FlowPanel>
-                <g:Label text="Passive Wisdom (Perception)"/>
-                <g:NumberLabel ui:field="passiveWisdom"/>
-            </g:FlowPanel>
-            <g:FlowPanel>
-                <g:Label text="Inspiration"/>
-                <g:CheckBox ui:field="hasInspirationPoint"/>
-            </g:FlowPanel>
-            <g:FlowPanel>
-                <g:Label text="Proficiency"/>
-                <app:IntegerSpinner ui:field="proficiency"/>
-            </g:FlowPanel>
-            <g:FlowPanel>
-                <g:HorizontalPanel>
-                    <g:Label text="Armor Class"/>
-                    <app:IntegerSpinner ui:field="armorClass"/>
-                </g:HorizontalPanel>
-                <g:HorizontalPanel>
-                    <g:Label text="Initiative"/>
-                    <g:NumberLabel ui:field="initiative"/>
-                </g:HorizontalPanel>
-                <g:HorizontalPanel>
-                    <g:Label text="Speed"/>
-                    <app:IntegerSpinner ui:field="speed"/>
+                    <g:Label text="Experience Points" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="experiencePoints" styleName="{style.characterIntegerSpinner}"/>
                 </g:HorizontalPanel>
             </g:FlowPanel>
             <g:FlowPanel>
                 <g:HorizontalPanel>
-                    <g:Label text="Maximum Hit Points"/>
-                    <app:IntegerSpinner ui:field="maximumHitPoints"/>
+                    <g:Label text="Strength" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="strength" styleName="{style.characterIntegerSpinner}"/>
+                    <g:NumberLabel ui:field="strengthModifier" styleName="{style.characterLabel}"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
-                    <g:Label text="Current Hit Points"/>
-                    <app:IntegerSpinner ui:field="currentHitPoints"/>
+                    <g:Label text="Dexterity" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="dexterity" styleName="{style.characterIntegerSpinner}"/>
+                    <g:NumberLabel ui:field="dexterityModifier" styleName="{style.characterLabel}"/>
                 </g:HorizontalPanel>
                 <g:HorizontalPanel>
-                    <g:Label text="Temporary Hit Points"/>
-                    <app:IntegerSpinner ui:field="temporaryHitPoints"/>
+                    <g:Label text="Constitution" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="constitution" styleName="{style.characterIntegerSpinner}"/>
+                    <g:NumberLabel ui:field="constitutionModifier" styleName="{style.characterLabel}"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Intelligence" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="intelligence" styleName="{style.characterIntegerSpinner}"/>
+                    <g:NumberLabel ui:field="intelligenceModifier" styleName="{style.characterLabel}"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Wisdom" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="wisdom" styleName="{style.characterIntegerSpinner}"/>
+                    <g:NumberLabel ui:field="wisdomModifier" styleName="{style.characterLabel}"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Charisma" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="charisma" styleName="{style.characterIntegerSpinner}"/>
+                    <g:NumberLabel ui:field="charismaModifier" styleName="{style.characterLabel}"/>
                 </g:HorizontalPanel>
             </g:FlowPanel>
             <g:FlowPanel>
-                <g:Label text="Remaining Hit Dice"/>
-                <app:IntegerSpinner ui:field="currentHitDice"/>
+                <g:HorizontalPanel>
+                    <g:Label text="Passive Wisdom (Perception)" styleName="{style.characterLabel}"/>
+                    <g:NumberLabel ui:field="passiveWisdom" styleName="{style.characterLabel}"/>
+                </g:HorizontalPanel>
             </g:FlowPanel>
             <g:FlowPanel>
-                <g:Label text="Maximum Hit Dice"/>
-                <app:IntegerSpinner ui:field="maximumHitDice"/>
+                <g:HorizontalPanel>
+                    <g:Label text="Inspiration" styleName="{style.characterLabel}"/>
+                    <g:CheckBox ui:field="hasInspirationPoint"/>
+                </g:HorizontalPanel>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Proficiency" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="proficiency" styleName="{style.characterIntegerSpinner}"/>
+                </g:HorizontalPanel>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Armor Class" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="armorClass" styleName="{style.characterIntegerSpinner}"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Initiative" styleName="{style.characterLabel}"/>
+                    <g:NumberLabel ui:field="initiative" styleName="{style.characterLabel}"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Speed" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="speed" styleName="{style.characterIntegerSpinner}"/>
+                </g:HorizontalPanel>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Maximum Hit Points" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="maximumHitPoints" styleName="{style.characterIntegerSpinner}"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Current Hit Points" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="currentHitPoints" styleName="{style.characterIntegerSpinner}"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Temporary Hit Points" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="temporaryHitPoints" styleName="{style.characterIntegerSpinner}"/>
+                </g:HorizontalPanel>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Remaining Hit Dice" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="currentHitDice" styleName="{style.characterIntegerSpinner}"/>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel>
+                    <g:Label text="Maximum Hit Dice" styleName="{style.characterLabel}"/>
+                    <app:IntegerSpinner ui:field="maximumHitDice" styleName="{style.characterIntegerSpinner}"/>
+                </g:HorizontalPanel>
             </g:FlowPanel>
         </g:VerticalPanel>
     </g:HTMLPanel>

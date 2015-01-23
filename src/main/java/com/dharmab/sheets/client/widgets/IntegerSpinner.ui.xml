@@ -1,11 +1,11 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style src="IntegerSpinner.css"/>
     <g:HTMLPanel>
-        <g:VerticalPanel>
-            <g:Button ui:field="increment" text="+"/>
-            <g:IntegerBox ui:field="field"/>
-            <g:Button ui:field="decrement" text="-"/>
-        </g:VerticalPanel>
-
+        <g:HorizontalPanel>
+            <g:Button ui:field="decrement" text="-" styleName="{style.integerSpinnerButton}"/>
+            <g:IntegerBox ui:field="field" styleName="{style.integerSpinnerField}"/>
+            <g:Button ui:field="increment" text="+" styleName="{style.integerSpinnerButton}"/>
+        </g:HorizontalPanel>
     </g:HTMLPanel>
 </ui:UiBinder>
