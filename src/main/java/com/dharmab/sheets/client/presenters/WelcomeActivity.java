@@ -5,16 +5,17 @@ import com.dharmab.sheets.client.events.CharacterDeletionEventHandler;
 import com.dharmab.sheets.client.events.CharacterSelectionEvent;
 import com.dharmab.sheets.client.events.CharacterSelectionEventHandler;
 import com.dharmab.sheets.client.places.CharacterPlace;
-import com.dharmab.sheets.client.rpc.CharacterServiceAsync;
+import com.dharmab.sheets.client.requestfactory.AppRequestFactory;
+import com.dharmab.sheets.client.requestfactory.CharacterProxy;
+import com.dharmab.sheets.client.requestfactory.CharacterRequest;
 import com.dharmab.sheets.client.views.WelcomeView;
 import com.dharmab.sheets.client.widgets.CharacterListView;
-import com.dharmab.sheets.shared.character.Character;
-import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.place.shared.PlaceController;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 import java.util.List;
 
@@ -22,17 +23,17 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
     private WelcomeView view;
     private PlaceController placeController;
     private Driver driver;
-    private CharacterServiceAsync characterService;
+    private AppRequestFactory requestFactory;
 
     @Inject
     public WelcomeActivity(WelcomeView view,
                            Driver driver,
                            EventBus eventBus,
                            PlaceController placeController,
-                           CharacterServiceAsync characterService) {
+                           AppRequestFactory requestFactory) {
         this.view = view;
         this.placeController = placeController;
-        this.characterService = characterService;
+        this.requestFactory = requestFactory;
         eventBus.addHandler(CharacterSelectionEvent.TYPE, this);
         eventBus.addHandler(CharacterDeletionEvent.TYPE, this);
         this.driver = driver;
@@ -47,33 +48,24 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
     }
 
     private void refreshCharacterList() {
-        characterService.getAll(new AsyncCallback<List<com.dharmab.sheets.shared.character.Character>>() {
+        requestFactory.getCharacterRequest().getAll().fire(new Receiver<List<CharacterProxy>>() {
             @Override
-            public void onFailure(Throwable caught) {
-                // todo show error message
-            }
-
-            @Override
-            public void onSuccess(List<Character> result) {
-                driver.edit(result);
+            public void onSuccess(List<CharacterProxy> response) {
+                driver.edit(response, requestFactory.getCharacterRequest());
             }
         });
     }
 
     @Override
     public void createCharacter() {
-        characterService.merge(new Character(true), new AsyncCallback<Boolean>() {
+        CharacterRequest request = requestFactory.getCharacterRequest();
+        CharacterProxy newCharacter = request.create(CharacterProxy.class);
+        request.reset(newCharacter).fire(new Receiver<Void>() {
             @Override
-            public void onFailure(Throwable caught) {
-                // todo show error
-            }
-
-            @Override
-            public void onSuccess(Boolean result) {
+            public void onSuccess(Void response) {
                 refreshCharacterList();
             }
         });
-
     }
 
     @Override
@@ -83,20 +75,15 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
 
     @Override
     public void onCharacterDeletion(CharacterDeletionEvent event) {
-        characterService.delete(event.getId(), new AsyncCallback<Void>() {
+        requestFactory.getCharacterRequest().get(event.getId()).fire(new Receiver<CharacterProxy>() {
             @Override
-            public void onFailure(Throwable caught) {
-                // todo show error message
-            }
-
-            @Override
-            public void onSuccess(Void result) {
-                refreshCharacterList();
+            public void onSuccess(CharacterProxy response) {
+                requestFactory.getCharacterRequest().delete(response).fire();
             }
         });
     }
 
-    interface Driver extends SimpleBeanEditorDriver<List<Character>, CharacterListView> {
+    interface Driver extends RequestFactoryEditorDriver<List<CharacterProxy>, CharacterListView> {
 
     }
 }

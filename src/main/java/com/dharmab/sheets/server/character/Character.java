@@ -1,5 +1,6 @@
-package com.dharmab.sheets.shared.character;
+package com.dharmab.sheets.server.character;
 
+import com.dharmab.sheets.shared.character.DieType;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import javax.persistence.*;
@@ -79,39 +80,33 @@ public class Character implements IsSerializable {
      * This cannot be done in a zero-arg constructor because the zero-arg constructor is used by the RPC transport
      * mechanism and editor framework and the property set order can't be guaranteed. That approach led to bugs where,
      * for example, current HP couldn't be set to a value higher than max HP was set to in the constructor.
-     *
-     * @param useDefaultValues if true, set the character properties to default values which will pass validation.
      */
-    public Character(boolean useDefaultValues) {
-        this();
-        if (useDefaultValues) {
-            // Default values
-            name = "New character";
-            characterClass = "None";
-            background = "None";
-            race = "Human";
-            level = 1;
-            experiencePoints = 0;
-            strength = 8;
-            dexterity = 8;
-            constitution = 8;
-            intelligence = 8;
-            wisdom = 8;
-            charisma = 8;
-            armorClass = 0;
-            speed = 5;
-            proficiency = 2;
-            maximumHitPoints = 10;
-            currentHitPoints = 10;
-            temporaryHitPoints = 0;
-            hasInspirationPoint = false;
-            maximumHitDice = 2;
-            currentHitDice = 2;
+    public void initializeDefaults() {
+        name = "New character";
+        characterClass = "None";
+        background = "None";
+        race = "Human";
+        level = 1;
+        experiencePoints = 0;
+        strength = 8;
+        dexterity = 8;
+        constitution = 8;
+        intelligence = 8;
+        wisdom = 8;
+        charisma = 8;
+        armorClass = 0;
+        speed = 5;
+        proficiency = 2;
+        maximumHitPoints = 10;
+        currentHitPoints = 10;
+        temporaryHitPoints = 0;
+        hasInspirationPoint = false;
+        maximumHitDice = 2;
+        currentHitDice = 2;
 
-            for (int i = 1; i <= 9; i++) {
-                setCurrentSpellSlots(i, 0);
-                setMaximumSpellSlots(i, 0);
-            }
+        for (int i = 1; i <= 9; i++) {
+            setCurrentSpellSlots(i, 0);
+            setMaximumSpellSlots(i, 0);
         }
     }
 

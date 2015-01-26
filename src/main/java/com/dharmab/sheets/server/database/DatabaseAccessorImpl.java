@@ -1,6 +1,6 @@
 package com.dharmab.sheets.server.database;
 
-import com.dharmab.sheets.shared.character.Character;
+import com.dharmab.sheets.server.character.Character;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import org.hibernate.Session;

@@ -43,7 +43,7 @@
   sudo: yes
   notify: restart tomcat
 
-- name: initialize postgresql
+- name: reset postgresql
   command: /usr/bin/postgresql-setup initdb
   when: postgresql_installation|changed
   sudo: yes

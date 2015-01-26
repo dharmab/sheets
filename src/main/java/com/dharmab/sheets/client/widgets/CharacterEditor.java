@@ -1,6 +1,7 @@
 package com.dharmab.sheets.client.widgets;
 
 import com.dharmab.sheets.client.events.CharacterEditEvent;
+import com.dharmab.sheets.client.requestfactory.CharacterProxy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -12,7 +13,7 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
 
-public class CharacterEditor extends Composite implements Editor<com.dharmab.sheets.shared.character.Character> {
+public class CharacterEditor extends Composite implements Editor<CharacterProxy> {
     private static CharacterEditorUiBinder ourUiBinder = GWT.create(CharacterEditorUiBinder.class);
     private final EventBus eventBus;
     /**

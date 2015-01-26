@@ -1,5 +1,6 @@
 package com.dharmab.sheets.shared.character;
 
+import com.dharmab.sheets.server.character.Character;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +63,8 @@ public class CharacterTest {
 
     @Before
     public void setUp() throws Exception {
-        character = new Character(true);
+        character = new Character();
+        character.initializeDefaults();
     }
 
     @After
@@ -687,7 +689,7 @@ public class CharacterTest {
         }
     }
 
-    private Integer getCurrentSpellSlots(Character character, int level) {
+    private Integer getCurrentSpellSlots(com.dharmab.sheets.server.character.Character character, int level) {
         switch (level) {
             case 1:
                 return character.getCurrentFirstLevelSpellSlots();

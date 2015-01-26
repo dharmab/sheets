@@ -4,32 +4,33 @@ import com.dharmab.sheets.client.events.CharacterEditEvent;
 import com.dharmab.sheets.client.events.CharacterEditEventHandler;
 import com.dharmab.sheets.client.places.CharacterPlace;
 import com.dharmab.sheets.client.places.WelcomePlace;
-import com.dharmab.sheets.client.rpc.CharacterServiceAsync;
+import com.dharmab.sheets.client.requestfactory.AppRequestFactory;
+import com.dharmab.sheets.client.requestfactory.CharacterProxy;
+import com.dharmab.sheets.client.requestfactory.CharacterRequest;
 import com.dharmab.sheets.client.views.CharacterView;
 import com.dharmab.sheets.client.widgets.CharacterEditor;
-import com.dharmab.sheets.shared.character.Character;
-import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.place.shared.PlaceController;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
+import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
 import java.util.Set;
 
 
 public class CharacterActivity extends AppActivity implements CharacterPresenter, CharacterEditEventHandler {
 
+    private CharacterProxy character;
     private CharacterView view;
     private Driver driver;
-    private CharacterServiceAsync characterService;
+    private AppRequestFactory requestFactory;
     private PlaceController placeController;
     private EventBus eventBus;
     private Integer characterId;
-    private Validator validator;
 
     @Inject
     public CharacterActivity(@Assisted CharacterPlace place,
@@ -37,14 +38,12 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
                              Driver driver,
                              EventBus eventBus,
                              PlaceController placeController,
-                             CharacterServiceAsync characterService,
-                             Validator validator) {
+                             AppRequestFactory requestFactory) {
         this.view = view;
         this.driver = driver;
         this.placeController = placeController;
         this.eventBus = eventBus;
-        this.characterService = characterService;
-        this.validator = validator;
+        this.requestFactory = requestFactory;
 
         try {
             characterId = Integer.parseInt(place.getToken());
@@ -59,52 +58,46 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     }
 
     private void refreshCharacter() {
-        characterService.get(characterId, new AsyncCallback<Character>() {
+        requestFactory.getCharacterRequest().get(characterId).fire(new Receiver<CharacterProxy>() {
             @Override
-            public void onFailure(Throwable caught) {
-                // todo show error message
-            }
-
-            @Override
-            public void onSuccess(Character character) {
-                if (character == null) {
+            public void onSuccess(CharacterProxy response) {
+                if (response == null) {
                     goToCharacterNotFoundPlace();
                 }
-                driver.edit(character);
+                character = response;
+                editCharacter();
             }
         });
     }
 
+    private void editCharacter() {
+        driver.edit(character, requestFactory.getCharacterRequest());
+    }
+
     @Override
     public void save() {
-        // todo client-side validation
-        Character character = driver.flush();
-        Set<ConstraintViolation<Character>> violations = validator.validate(character);
-        if (violations.isEmpty()) {
-            characterService.merge(character, new AsyncCallback<Boolean>() {
-                @Override
-                public void onFailure(Throwable caught) {
-                    view.showErrorMessage("An error occurred");
-                }
-
-                @Override
-                public void onSuccess(Boolean result) {
-                    view.hideErrorMessage();
-                    refreshCharacter();
-                }
-            });
-        } else {
-            StringBuilder builder = new StringBuilder();
-            for (ConstraintViolation<Character> violation : violations) {
-                builder
-                        .append(violation.getPropertyPath())
-                        .append(" ")
-                        .append(violation.getMessage())
-                        .append("\n");
+        CharacterRequest request = (CharacterRequest) driver.flush();
+        request.persist(character).fire(new Receiver<Void>() {
+            @Override
+            public void onFailure(ServerFailure error) {
+                view.showErrorMessage("An error occurred");
             }
-            view.showErrorMessage(builder.toString());
-            refreshCharacter();
-        }
+
+            @Override
+            public void onSuccess(Void response) {
+                view.hideErrorMessage();
+                refreshCharacter();
+            }
+
+            @Override
+            public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
+                StringBuilder builder = new StringBuilder();
+                for (ConstraintViolation<?> violation : violations) {
+                    builder.append(violation.getMessage());
+                }
+                view.showErrorMessage(builder.toString());
+            }
+        });
     }
 
     @Override
@@ -129,7 +122,7 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         save();
     }
 
-    interface Driver extends SimpleBeanEditorDriver<Character, CharacterEditor> {
+    interface Driver extends RequestFactoryEditorDriver<CharacterProxy, CharacterEditor> {
 
     }
 }
