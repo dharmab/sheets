@@ -1,6 +1,7 @@
 package com.dharmab.sheets.server.character;
 
 import com.dharmab.sheets.shared.character.DieType;
+import com.dharmab.sheets.shared.character.GameLogic;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import javax.persistence.*;
@@ -283,7 +284,7 @@ public class Character implements IsSerializable {
 
     @Transient
     public Integer getInitiative() {
-        return getDexterityModifier();
+        return GameLogic.computeInitiative(dexterity);
     }
 
     @Column(name = "speed")
@@ -348,47 +349,39 @@ public class Character implements IsSerializable {
         this.temporaryHitPoints = temporaryHitPoints;
     }
 
-    private int getAbilityModifier(Integer abilityScore) {
-        if (abilityScore >= 10) {
-            return (abilityScore - 10) / 2;
-        } else {
-            return (int) Math.floor((abilityScore - 10) / 2d);
-        }
-    }
-
     @Transient
     public Integer getStrengthModifier() {
-        return getAbilityModifier(strength);
+        return GameLogic.computeAbilityModifier(strength);
     }
 
     @Transient
     public Integer getDexterityModifier() {
-        return getAbilityModifier(dexterity);
+        return GameLogic.computeAbilityModifier(dexterity);
     }
 
     @Transient
     public Integer getConstitutionModifier() {
-        return getAbilityModifier(constitution);
+        return GameLogic.computeAbilityModifier(constitution);
     }
 
     @Transient
     public Integer getIntelligenceModifier() {
-        return getAbilityModifier(intelligence);
+        return GameLogic.computeAbilityModifier(intelligence);
     }
 
     @Transient
     public Integer getWisdomModifier() {
-        return getAbilityModifier(wisdom);
+        return GameLogic.computeAbilityModifier(wisdom);
     }
 
     @Transient
     public Integer getCharismaModifier() {
-        return getAbilityModifier(charisma);
+        return GameLogic.computeAbilityModifier(charisma);
     }
 
     @Transient
     public Integer getPassiveWisdom() {
-        return getWisdomModifier() + 10;
+        return GameLogic.computePassiveWisdom(wisdom);
     }
 
     @Column(name = "proficiency")
