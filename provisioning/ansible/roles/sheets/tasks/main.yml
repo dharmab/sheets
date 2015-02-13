@@ -99,7 +99,8 @@
 
 # While the firewall reload should apply the firewalld rules, in the dev VM the reload fails for some reason.
 # workaround: restart the daemon
+# for some reason, the service module doesn't work but the command module does
+# This confuses me greatly
 - name: restart firewall
-  service: name=firewalld state=restarted
-  when: firewalld_redirect|changed or firewalld_open_ports|changed
+  command: systemctl restart firewalld
   sudo: yes
