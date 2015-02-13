@@ -87,6 +87,7 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
             @Override
             public void onFailure(ServerFailure error) {
                 view.showErrorMessage("An error occurred");
+                refreshCharacter();
             }
 
             @Override
@@ -99,9 +100,12 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
             public void onConstraintViolation(Set<ConstraintViolation<?>> violations) {
                 StringBuilder builder = new StringBuilder();
                 for (ConstraintViolation<?> violation : violations) {
-                    builder.append(violation.getMessage());
+                    builder.append(violation.getMessage()).append(" ");
                 }
                 view.showErrorMessage(builder.toString());
+                // todo figure out why the fuck the first refresh fails
+                refreshCharacter();
+                refreshCharacter();
             }
         });
     }
