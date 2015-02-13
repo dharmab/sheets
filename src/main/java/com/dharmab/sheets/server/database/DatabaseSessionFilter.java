@@ -8,14 +8,17 @@ import org.hibernate.SessionFactory;
 
 import javax.servlet.*;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Singleton
 public class DatabaseSessionFilter implements Filter {
     private SessionFactory sessionFactory;
+    private Logger logger;
 
     @Inject
-    public DatabaseSessionFilter(SessionFactory sessionFactory) {
+    public DatabaseSessionFilter(SessionFactory sessionFactory, Logger logger) {
         this.sessionFactory = sessionFactory;
+        this.logger = logger;
     }
 
     @Override

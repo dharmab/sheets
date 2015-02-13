@@ -39,7 +39,7 @@ public class AppContextListener extends GuiceServletContextListener {
                             serve("/gwtRequest").with(InjectableRequestFactoryServlet.class);
                             // RPC servlet mappings go here
                             // example:
-                            //serve("/sheets/myurl").with(MyServiceImpl`.class);
+                            //serve("/sheets/myurl").with(MyServiceImpl.class);
                         }
                     });
         } catch (NamingException e) {
