@@ -13,6 +13,9 @@ import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class CharacterEditor extends Composite implements Editor<CharacterProxy> {
     private static CharacterEditorUiBinder ourUiBinder = GWT.create(CharacterEditorUiBinder.class);
@@ -89,6 +92,20 @@ public class CharacterEditor extends Composite implements Editor<CharacterProxy>
     public CharacterEditor(EventBus eventBus) {
         this.eventBus = eventBus;
         initWidget(ourUiBinder.createAndBindUi(this));
+    }
+
+    public void forceUpdate() {
+        Map<HasValue<Integer>, NumberLabel<Integer>> map = new HashMap<>();
+        map.put(strength, strengthModifier);
+        map.put(dexterity, dexterityModifier);
+        map.put(constitution, constitutionModifier);
+        map.put(intelligence, intelligenceModifier);
+        map.put(wisdom, wisdomModifier);
+        map.put(charisma, charismaModifier);
+
+        for (Map.Entry<HasValue<Integer>, NumberLabel<Integer>> e : map.entrySet()) {
+            setModifierLabelValue(e.getKey().getValue(), e.getValue());
+        }
     }
 
     @UiHandler(value = {

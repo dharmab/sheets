@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -31,6 +32,7 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     private AppRequestFactory requestFactory;
     private PlaceController placeController;
     private EventBus eventBus;
+    private HandlerRegistration registration;
 
     @Inject
     public CharacterActivity(@Assisted CharacterPlace place,
@@ -74,7 +76,8 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
 
     private void editCharacter(CharacterProxy character) {
         this.character = character;
-        driver.edit(character, requestFactory.getCharacterRequest());
+        driver.edit(this.character, requestFactory.getCharacterRequest());
+        view.asEditor().forceUpdate();
     }
 
     @Override
@@ -116,8 +119,14 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     @Override
     public void start(AcceptsOneWidget panel) {
         panel.setWidget(view);
-        eventBus.addHandler(CharacterEditEvent.TYPE, this);
         refreshCharacter();
+        registration = eventBus.addHandler(CharacterEditEvent.TYPE, this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        registration.removeHandler();
     }
 
     @Override
