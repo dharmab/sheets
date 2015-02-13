@@ -1,8 +1,8 @@
 package com.dharmab.sheets.server.character;
 
+import com.dharmab.sheets.server.database.HasIdAndVersion;
 import com.dharmab.sheets.shared.character.DieType;
 import com.dharmab.sheets.shared.character.GameLogic;
-import com.google.gwt.user.client.rpc.IsSerializable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "characters")
-public class Character implements IsSerializable {
+public class Character implements HasIdAndVersion<Integer, Integer> {
     // Regexp matchs strings that are not empty and start with a non-whitespace character
     private static final String NAME_REGEXP = "\\S.*";
 

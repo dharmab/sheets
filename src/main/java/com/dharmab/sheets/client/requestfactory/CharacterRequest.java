@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service(value = CharacterService.class, locator = InjectingServiceLocator.class)
 public interface CharacterRequest extends RequestContext {
-    Request<CharacterProxy> get(int id);
+    Request<CharacterProxy> get(Integer id);
 
     Request<Void> persist(CharacterProxy character);
 
@@ -18,7 +18,5 @@ public interface CharacterRequest extends RequestContext {
 
     Request<Void> delete(Integer id);
 
-    Request<List<CharacterProxy>> getAll();
-
-    Request<Void> reset(CharacterProxy character);
+    Request<List<CharacterProxy>> get(Integer start, int maxLength);
 }

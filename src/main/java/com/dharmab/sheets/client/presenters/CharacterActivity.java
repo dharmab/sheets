@@ -24,13 +24,13 @@ import java.util.Set;
 
 public class CharacterActivity extends AppActivity implements CharacterPresenter, CharacterEditEventHandler {
 
+    private final Integer characterId;
     private CharacterProxy character;
     private CharacterView view;
     private Driver driver;
     private AppRequestFactory requestFactory;
     private PlaceController placeController;
     private EventBus eventBus;
-    private Integer characterId;
 
     @Inject
     public CharacterActivity(@Assisted CharacterPlace place,
@@ -45,11 +45,13 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
         this.eventBus = eventBus;
         this.requestFactory = requestFactory;
 
+        Integer id = null;
         try {
-            characterId = Integer.parseInt(place.getToken());
+            id = Integer.parseInt(place.getToken());
         } catch (NumberFormatException e) {
             goToCharacterNotFoundPlace();
         }
+        characterId = id;
 
         view.setPresenter(this);
         view.hideErrorMessage();
@@ -63,14 +65,15 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
             public void onSuccess(CharacterProxy response) {
                 if (response == null) {
                     goToCharacterNotFoundPlace();
+                } else {
+                    editCharacter(response);
                 }
-                character = response;
-                editCharacter();
             }
         });
     }
 
-    private void editCharacter() {
+    private void editCharacter(CharacterProxy character) {
+        this.character = character;
         driver.edit(character, requestFactory.getCharacterRequest());
     }
 
@@ -113,8 +116,8 @@ public class CharacterActivity extends AppActivity implements CharacterPresenter
     @Override
     public void start(AcceptsOneWidget panel) {
         panel.setWidget(view);
-        refreshCharacter();
         eventBus.addHandler(CharacterEditEvent.TYPE, this);
+        refreshCharacter();
     }
 
     @Override

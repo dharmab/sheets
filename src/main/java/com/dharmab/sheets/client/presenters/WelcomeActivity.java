@@ -48,7 +48,7 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
     }
 
     private void refreshCharacterList() {
-        requestFactory.getCharacterRequest().getAll().fire(new Receiver<List<CharacterProxy>>() {
+        requestFactory.getCharacterRequest().get(0, 1000).fire(new Receiver<List<CharacterProxy>>() {
             @Override
             public void onSuccess(List<CharacterProxy> response) {
                 driver.edit(response, requestFactory.getCharacterRequest());
@@ -60,7 +60,7 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
     public void createCharacter() {
         CharacterRequest request = requestFactory.getCharacterRequest();
         CharacterProxy newCharacter = request.create(CharacterProxy.class);
-        request.reset(newCharacter).fire(new Receiver<Void>() {
+        request.persist(newCharacter).fire(new Receiver<Void>() {
             @Override
             public void onSuccess(Void response) {
                 refreshCharacterList();
@@ -75,10 +75,10 @@ public class WelcomeActivity extends AppActivity implements WelcomePresenter, Ch
 
     @Override
     public void onCharacterDeletion(CharacterDeletionEvent event) {
-        requestFactory.getCharacterRequest().get(event.getId()).fire(new Receiver<CharacterProxy>() {
+        requestFactory.getCharacterRequest().delete(event.getId()).fire(new Receiver<Void>() {
             @Override
-            public void onSuccess(CharacterProxy response) {
-                requestFactory.getCharacterRequest().delete(response).fire();
+            public void onSuccess(Void response) {
+                refreshCharacterList();
             }
         });
     }

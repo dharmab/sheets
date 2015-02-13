@@ -1,5 +1,6 @@
 package com.dharmab.sheets.server.database;
 
+import com.dharmab.sheets.server.character.CharacterService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -20,7 +21,7 @@ public class DatabaseModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(DatabaseAccessor.class).to(DatabaseAccessorImpl.class);
+        bind(CharacterService.class);
     }
 
     @Provides

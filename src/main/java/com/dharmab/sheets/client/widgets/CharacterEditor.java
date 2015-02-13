@@ -2,6 +2,7 @@ package com.dharmab.sheets.client.widgets;
 
 import com.dharmab.sheets.client.events.CharacterEditEvent;
 import com.dharmab.sheets.client.requestfactory.CharacterProxy;
+import com.dharmab.sheets.shared.character.GameLogic;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -34,26 +35,32 @@ public class CharacterEditor extends Composite implements Editor<CharacterProxy>
     @UiField
     IntegerSpinner strength;
     @UiField
+    @Ignore
     NumberLabel<Integer> strengthModifier;
     @UiField
     IntegerSpinner dexterity;
     @UiField
+    @Ignore
     NumberLabel<Integer> dexterityModifier;
     @UiField
     IntegerSpinner constitution;
     @UiField
+    @Ignore
     NumberLabel<Integer> constitutionModifier;
     @UiField
     IntegerSpinner intelligence;
     @UiField
+    @Ignore
     NumberLabel<Integer> intelligenceModifier;
     @UiField
     IntegerSpinner wisdom;
     @UiField
+    @Ignore
     NumberLabel<Integer> wisdomModifier;
     @UiField
     IntegerSpinner charisma;
     @UiField
+    @Ignore
     NumberLabel<Integer> charismaModifier;
     @UiField
     NumberLabel<Integer> passiveWisdom;
@@ -121,6 +128,45 @@ public class CharacterEditor extends Composite implements Editor<CharacterProxy>
         if (event.getValue() != null) {
             fireCharacterEditEvent();
         }
+    }
+
+    private void setModifierLabelValue(Integer value, NumberLabel<Integer> label) {
+        if (value != null) {
+            label.setValue(GameLogic.computeAbilityModifier(value));
+        }
+    }
+
+    @UiHandler(value = {
+            "strength",
+            "dexterity",
+            "constitution",
+            "intelligence",
+            "wisdom",
+            "charisma"
+    })
+    void onAbilityScoreValueChange(ValueChangeEvent<Integer> event) {
+        Object source = event.getSource();
+        if (source == null) {
+            return;
+        }
+        NumberLabel<Integer> label = null;
+        if (source == strength) {
+            label = strengthModifier;
+        } else if (source == dexterity) {
+            label = dexterityModifier;
+        } else if (source == constitution) {
+            label = constitutionModifier;
+        } else if (source == intelligence) {
+            label = intelligenceModifier;
+        } else if (source == wisdom) {
+            label = wisdomModifier;
+        } else if (source == charisma) {
+            label = charismaModifier;
+        }
+        if (label == null) {
+            return;
+        }
+        setModifierLabelValue(event.getValue(), label);
     }
 
     @UiHandler(value = {

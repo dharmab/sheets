@@ -1,10 +1,10 @@
 package com.dharmab.sheets.client.requestfactory;
 
-import com.dharmab.sheets.server.character.CharacterService;
+import com.dharmab.sheets.server.character.CharacterLocator;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
-@ProxyFor(value = com.dharmab.sheets.server.character.Character.class, locator = CharacterService.class)
+@ProxyFor(value = com.dharmab.sheets.server.character.Character.class, locator = CharacterLocator.class)
 public interface CharacterProxy extends EntityProxy {
     Integer getId();
 
